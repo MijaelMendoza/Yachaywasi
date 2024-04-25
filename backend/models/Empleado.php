@@ -1,11 +1,12 @@
 <?php
+include 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
 class Empleado {
     private $db;
 
     public function __construct() {
-        $this->db = require_once '.././core/conexion.php';
+        $this->db = Conectarse();
     }
-    
+
     public function obtenerEmpleados() {
         $stmt = $this->db->prepare("SELECT * FROM Empleado");
         $stmt->execute();

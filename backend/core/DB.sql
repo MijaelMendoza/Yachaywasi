@@ -1,10 +1,10 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2024-04-22 13:21:51.139
+-- Last modification date: 2024-04-25 00:29:45.516
 
 -- tables
 -- Table: Cliente
 CREATE TABLE Cliente (
-    cu int  NOT NULL,
+    cu serial  NOT NULL,
     nombre varchar(50)  NOT NULL,
     ci varchar(10)  NOT NULL,
     direccion varchar(50)  NOT NULL,
@@ -12,23 +12,26 @@ CREATE TABLE Cliente (
     correo varchar(50)  NOT NULL,
     fecha_registro date  NOT NULL,
     segmento_cliente varchar(50)  NOT NULL,
+    estado boolean  NOT NULL,
+    genero varchar(50)  NOT NULL,
     CONSTRAINT Cliente_pk PRIMARY KEY (cu)
 );
 
 -- Table: Editorial
 CREATE TABLE Editorial (
-    ce int  NOT NULL,
+    ce serial  NOT NULL,
     nombre varchar(50)  NOT NULL,
     contacto varchar(50)  NOT NULL,
     direccion varchar(50)  NOT NULL,
     telefono varchar(10)  NOT NULL,
     correo varchar(50)  NOT NULL,
+    estado boolean  NOT NULL,
     CONSTRAINT Editorial_pk PRIMARY KEY (ce)
 );
 
 -- Table: Empleado
 CREATE TABLE Empleado (
-    ca int  NOT NULL,
+    ca serial  NOT NULL,
     nombre varchar(50)  NOT NULL,
     ci varchar(10)  NOT NULL,
     password varchar(30)  NOT NULL,
@@ -45,7 +48,7 @@ CREATE TABLE Empleado (
 
 -- Table: Envios
 CREATE TABLE Envios (
-    cen int  NOT NULL,
+    cen serial  NOT NULL,
     fecha_envio date  NOT NULL,
     fecha_estimada_entrega date  NOT NULL,
     fecha_real_entrega date  NOT NULL,
@@ -60,7 +63,7 @@ CREATE TABLE Envios (
 
 -- Table: Libros
 CREATE TABLE Libros (
-    cl int  NOT NULL,
+    cl serial  NOT NULL,
     nombre varchar(50)  NOT NULL,
     genero varchar(20)  NOT NULL,
     precio numeric(10,2)  NOT NULL,
@@ -75,7 +78,7 @@ CREATE TABLE Libros (
 
 -- Table: Pedidos
 CREATE TABLE Pedidos (
-    cpe int  NOT NULL,
+    cpe serial  NOT NULL,
     cantidad int  NOT NULL,
     fecha date  NOT NULL,
     forma_pago varchar(50)  NOT NULL,
@@ -88,7 +91,7 @@ CREATE TABLE Pedidos (
 
 -- Table: Pedidos_proveedores
 CREATE TABLE Pedidos_proveedores (
-    cpep int  NOT NULL,
+    cpep serial  NOT NULL,
     cantidad int  NOT NULL,
     fecha_pedido date  NOT NULL,
     fecha_repeccion date  NOT NULL,
@@ -98,27 +101,29 @@ CREATE TABLE Pedidos_proveedores (
 
 -- Table: Proveedores
 CREATE TABLE Proveedores (
-    cpr int  NOT NULL,
+    cpr serial  NOT NULL,
     nombre varchar(50)  NOT NULL,
     contacto varchar(50)  NOT NULL,
     correo varchar(50)  NOT NULL,
     telefono varchar(10)  NOT NULL,
+    estado boolean  NOT NULL,
     CONSTRAINT Proveedores_pk PRIMARY KEY (cpr)
 );
 
 -- Table: Sucursal
 CREATE TABLE Sucursal (
-    cs int  NOT NULL,
+    cs serial  NOT NULL,
     nombre varchar(50)  NOT NULL,
     direccion varchar(50)  NOT NULL,
     telefono varchar(10)  NOT NULL,
     correo varchar(50)  NOT NULL,
+    estado boolean  NOT NULL,
     CONSTRAINT Sucursal_pk PRIMARY KEY (cs)
 );
 
 -- Table: Ventas
 CREATE TABLE Ventas (
-    cv int  NOT NULL,
+    cv serial  NOT NULL,
     fecha_venta date  NOT NULL,
     forma_pago varchar(50)  NOT NULL,
     cantidad int  NOT NULL,
@@ -131,7 +136,7 @@ CREATE TABLE Ventas (
 
 -- Table: detalle_pedido
 CREATE TABLE detalle_pedido (
-    cdo int  NOT NULL,
+    cdo serial  NOT NULL,
     Libros_cl int  NOT NULL,
     Pedidos_cpe int  NOT NULL,
     CONSTRAINT detalle_pedido_pk PRIMARY KEY (cdo)
@@ -139,7 +144,7 @@ CREATE TABLE detalle_pedido (
 
 -- Table: detalle_venta
 CREATE TABLE detalle_venta (
-    cdv int  NOT NULL,
+    cdv serial  NOT NULL,
     precio_unitario int  NOT NULL,
     Ventas_cv int  NOT NULL,
     Libros_cl int  NOT NULL,
@@ -148,7 +153,7 @@ CREATE TABLE detalle_venta (
 
 -- Table: pedidos_proveedores_libros
 CREATE TABLE pedidos_proveedores_libros (
-    cppl int  NOT NULL,
+    cppl serial  NOT NULL,
     Pedidos_proveedores_cpep int  NOT NULL,
     Libros_cl int  NOT NULL,
     CONSTRAINT pedidos_proveedores_libros_pk PRIMARY KEY (cppl)
@@ -156,7 +161,7 @@ CREATE TABLE pedidos_proveedores_libros (
 
 -- Table: reviews
 CREATE TABLE reviews (
-    cr int  NOT NULL,
+    cr serial  NOT NULL,
     ratings int  NOT NULL,
     comentario varchar(500)  NOT NULL,
     fecha_review date  NOT NULL,

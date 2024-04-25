@@ -1,5 +1,5 @@
 <?php
-require_once '../models/Libros.php';
+include 'C:\xampp\htdocs\Yachaywasi\backend\models\Libro.php';
 
 class LibroController
 {
@@ -13,13 +13,13 @@ class LibroController
     public function listarLibros()
     {
         $libros = $this->libroModel->obtenerLibros();
-        echo json_encode($libros);
+        return json_encode($libros);
     }
 
     public function mostrarLibro($cl)
     {
         $libro = $this->libroModel->obtenerLibroPorId($cl);
-        echo json_encode($libro);
+        return json_encode($libro);
     }
 
     public function crearLibro($datosLibro)

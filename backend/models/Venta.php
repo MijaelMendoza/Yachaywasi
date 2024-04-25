@@ -1,11 +1,10 @@
 <?php
-
+include 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
 class VentasModel {
     private $db;
 
     public function __construct() {
-        // Utilizamos la conexión existente
-        $this->db = require_once '.././core/conexion.php';
+        $this->db = Conectarse();
     }
 
     public function insertarVenta($fecha_venta, $forma_pago, $cantidad, $monto, $cliente_cu, $empleado_ca, $sucursal_cs) {

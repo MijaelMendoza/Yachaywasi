@@ -1,11 +1,10 @@
 <?php
-
+include 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
 class ProveedoresModel {
     private $db;
 
     public function __construct() {
-        // Utilizamos la conexión existente
-        $this->db = require_once '.././core/conexion.php';
+        $this->db = Conectarse();
     }
 
     public function insertarProveedor($nombre, $contacto, $correo, $telefono, $estado) {

@@ -1,16 +1,17 @@
-<<<<<<< Updated upstream
-=======
 <?php
 // Function to connect to the database
-function Conectarse()
-{
-    $conn_string = "host=localhost port=5432 dbname=Yachaywasi user=postgres password=admin";
-    $link = pg_connect($conn_string);
-
-    if (!$link) {
-        return false;
+function Conectarse(){
+    $host = 'localhost';
+    $usuario = 'postgres';
+    $contrasena = '3211';
+    $nombre_bd = 'yachaywasi';
+    try {
+        $conn = @new PDO("pgsql:host=$host;dbname=$nombre_bd;user=$usuario;password=$contrasena");
+    } catch (Exception $e) {
+        echo "sdsa";
+        echo $e->getMessage();
     }
-    return $link;
+    return $conn;
 }
 
 // Functions related to the Cliente table
@@ -67,49 +68,6 @@ function modificacionCliente($cu, $nombre, $ci, $direccion, $telefono, $correo, 
 
     pg_close($conexion);
 }
-
-function obtenerClientes()
-{
-    $conexion = Conectarse();
-
-    if (!$conexion) {
-        echo "<h1>No se puede conectar a la base de datos.</h1>";
-        exit();
-    }
-
-    $consulta = "SELECT * FROM Cliente";
-
-    $resultado = pg_query($conexion, $consulta);
-
-    // Check if query was successful
-    if (!$resultado) {
-        echo "Error en la consulta.";
-        exit();
-    }
-
-    // Fetch data from the result set
-    $clientes = pg_fetch_all($resultado);
-
-    // Close connection
-    pg_close($conexion);
-
-    return $clientes;
-}
-
-// Usage example: Fetch all clients
-$clientes = obtenerClientes();
-
-// Display the retrieved data
-foreach ($clientes as $cliente) {
-    echo "CU: " . $cliente['cu'] . ", Nombre: " . $cliente['nombre'] . ", CI: " . $cliente['ci'] . "<br>";
-}
-
-
-
-
-
-
-
 
 // Functions related to the Editorial table
 function altaEditorial($ce, $nombre, $contacto, $direccion, $telefono, $correo)
@@ -194,17 +152,6 @@ function obtenerEditoriales()
     return $editoriales;
 }
 
-// Usage example: Fetch all editorials
-$editoriales = obtenerEditoriales();
-
-// Display the retrieved data
-foreach ($editoriales as $editorial) {
-    echo "CE: " . $editorial['ce'] . ", Nombre: " . $editorial['nombre'] . ", Contacto: " . $editorial['contacto'] . "<br>";
-}
-
-
-
-
 // Function to retrieve data from the Proveedores table
 function obtenerProveedores()
 {
@@ -233,15 +180,6 @@ function obtenerProveedores()
 
     return $proveedores;
 }
-
-// Usage example: Fetch all providers
-$proveedores = obtenerProveedores();
-
-// Display the retrieved data
-foreach ($proveedores as $proveedor) {
-    echo "CPR: " . $proveedor['cpr'] . ", Nombre: " . $proveedor['nombre'] . ", Contacto: " . $proveedor['contacto'] . "<br>";
-}
-
 
 
 // Function to insert data into the Proveedores table
@@ -341,13 +279,6 @@ function obtenerSucursales()
     return $sucursales;
 }
 
-// Usage example: Fetch all branches
-$sucursales = obtenerSucursales();
-
-// Display the retrieved data
-foreach ($sucursales as $sucursal) {
-    echo "CS: " . $sucursal['cs'] . ", Nombre: " . $sucursal['nombre'] . ", Dirección: " . $sucursal['direccion'] . "<br>";
-}
 
 // Function to insert data into the Sucursal table
 function insertarSucursal($cs, $nombre, $direccion, $telefono, $correo)
@@ -1380,4 +1311,3 @@ function obtenerPedidosProveedorLibros()
 
 
 ?>
->>>>>>> Stashed changes

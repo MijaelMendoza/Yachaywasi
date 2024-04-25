@@ -1,11 +1,11 @@
 <?php
+include 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
 class Libro
 {
     private $db;
 
-    public function __construct()
-    {
-        $this->db = require_once '../core/conexion.php';
+    public function __construct() {
+        $this->db = Conectarse();
     }
 
     public function obtenerLibros()
