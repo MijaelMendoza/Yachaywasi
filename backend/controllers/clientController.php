@@ -1,5 +1,5 @@
 <?php
-require_once '../models/Cliente.php';
+require_once 'C:\xampp\htdocs\Yachaywasi\backend\models\Cliente.php';
 
 class ClienteController {
     private $clienteModel;
@@ -10,12 +10,12 @@ class ClienteController {
 
     public function listarClientes() {
         $clientes = $this->clienteModel->obtenerClientes();
-        echo json_encode($clientes);
+        return json_encode($clientes);
     }
 
     public function mostrarCliente($cu) {
         $cliente = $this->clienteModel->obtenerClientePorId($cu);
-        echo json_encode($cliente);
+        return json_encode($cliente);
     }
 
     public function crearCliente($datosCliente) {

@@ -11,7 +11,7 @@ Yachaywasi es un sistema de gestión de ventas diseñado específicamente para l
 - **Sucursales:** Administración de múltiples sucursales a través de una única plataforma.
 
 ## Tecnologías Utilizadas
-- **Frontend:** HTML, CSS (Bootstrap para el diseño responsive)
+- **Frontend:** HTML, CSS (Bootstrap)
 - **Backend:** PHP
 - **Base de Datos:** PostgreSQL
 - **JavaScript:** Para interacciones dinámicas en el cliente
