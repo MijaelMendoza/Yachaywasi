@@ -1,6 +1,7 @@
 <?php
 session_start(); 
 
+
 function Conectarse()
 {
     $link = mysqli_connect("localhost", "root", "", "yachaywasi");

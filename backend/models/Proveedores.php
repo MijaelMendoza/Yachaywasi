@@ -1,5 +1,6 @@
 <?php
 include 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
+
 class ProveedoresModel {
     private $db;
 

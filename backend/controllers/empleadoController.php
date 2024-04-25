@@ -1,6 +1,7 @@
 <?php
 require_once '../models/Empleado.php';
 
+
 class EmpleadoController {
     private $empleadoModel;
 

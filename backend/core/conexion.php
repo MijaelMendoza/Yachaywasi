@@ -14,6 +14,7 @@ function Conectarse(){
     return $conn;
 }
 
+
 // Functions related to the Cliente table
 function altaCliente($cu, $nombre, $ci, $direccion, $telefono, $correo, $fecha_registro, $segmento_cliente)
 {

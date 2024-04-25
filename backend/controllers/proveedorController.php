@@ -1,6 +1,7 @@
 <?php
 require_once('../models/Proveedores.php');
 
+
 class ProveedoresController {
     private $proveedoresModel;
 

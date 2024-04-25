@@ -6,7 +6,6 @@ $libroController = new LibroController();
 // Obtén la lista de libros
 $libros = json_decode($libroController->listarLibros(), true);
 ?>
-
 <div class="container mt-5">
     <!-- Título de la sección -->
     <div class="text-center bg-danger text-white p-2">

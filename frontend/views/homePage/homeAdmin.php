@@ -271,7 +271,6 @@ include '../templates/header.php';
         };
     </script>
 
-
     <div class="logout-container">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <button type="submit" name="logout" class="btn btn-danger">CERRAR SESIÓN</button>

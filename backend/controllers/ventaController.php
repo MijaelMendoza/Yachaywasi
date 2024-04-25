@@ -1,6 +1,7 @@
 <?php
 require_once('../models/Venta.php');
 
+
 class VentasController {
     private $ventasModel;
 
