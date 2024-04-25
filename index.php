@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 session_start();
 
@@ -30,3 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
+=======
+<?php include './templates/header.php'; ?>
+
+<div class="container mt-5">
+    <h1>Bienvenido a Mi Sitio Web</h1>
+    <p>Esta es la página principal del sitio web. Aquí puedes agregar más contenido HTML o PHP como desees.</p>
+</div>
+
+<?php include '/templates/footer.php'; ?>
+>>>>>>> 0482b201aadd2b2ad2e48d985d0bef4eddc9546a

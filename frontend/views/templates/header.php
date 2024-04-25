@@ -20,10 +20,17 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
+<<<<<<< HEAD
                             <a class="nav-link active" href="../libros/librosPagina.php">Libros</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../cliente/clientePage.php">Clientes</a>
+=======
+                            <a class="nav-link active" href="index.php">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.php">Acerca de</a>
+>>>>>>> 0482b201aadd2b2ad2e48d985d0bef4eddc9546a
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contact.php">Contacto</a>
@@ -33,6 +40,14 @@
             </div>
         </nav>
     </header>
+<<<<<<< HEAD
+=======
+    <footer class="bg-light text-center text-lg-start">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            &copy; 2024 Yachaywasi. Todos los derechos reservados.
+        </div>
+    </footer>
+>>>>>>> 0482b201aadd2b2ad2e48d985d0bef4eddc9546a
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

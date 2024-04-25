@@ -4,6 +4,10 @@ class VentasModel {
     private $db;
 
     public function __construct() {
+<<<<<<< HEAD
+=======
+        // Utilizamos la conexión existente
+>>>>>>> 0482b201aadd2b2ad2e48d985d0bef4eddc9546a
         $this->db = require_once '.././core/conexion.php';
     }
 
