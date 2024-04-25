@@ -53,7 +53,7 @@ include '../templates/header.php';
 
     .logout-container {
         position: fixed;
-        bottom: 20px;
+        bottom: 50px;
         right: 20px;
     }
 </style>
@@ -85,7 +85,7 @@ include '../templates/header.php';
                     <input type="hidden" name="user_id"
                         value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
                     <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                        data-bs-target="#registroVentaModal">
+                        data-bs-target="#registroPedidoModal">
                         <img src="../../images/registro_venta.png" alt="Pedido" style="width: 100px;">
                         <div>REGISTRAR PEDIDO</div>
                     </button>
@@ -99,7 +99,7 @@ include '../templates/header.php';
                     <input type="hidden" name="user_id"
                         value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
                     <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                        data-bs-target="#registroVentaModal">
+                        data-bs-target="#registroIngresoModal">
                         <img src="../../images/registro_venta.png" alt="Ingreso" style="width: 100px;">
                         <div>REGISTRAR INGRESO</div>
                     </button>
@@ -117,12 +117,12 @@ include '../templates/header.php';
                     <h5 class="modal-title" id="registroVentaModalLabel">REGISTRAR VENTA</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <!-- Formulario de registro de ventas -->
                 <div class="modal-body">
                     <input type="text" id="buscarLibro" class="form-control mb-3"
                         placeholder="Buscar libro por título...">
                     <div class="table-responsive" style="max-height: 700px; overflow-y: auto;">
 
-                        <!-- Formulario de registro de ventas -->
                         <!-- Lista de libros disponibles para agregar a la venta -->
                         <table class="table">
                             <thead>
@@ -214,21 +214,17 @@ include '../templates/header.php';
                     const montoInput = document.getElementById('monto');
                     let montoTotal = parseFloat(montoInput.value) || 0;
 
-                    // Crear elemento de lista para el libro agregado
                     let item = document.createElement('li');
                     item.classList.add('list-group-item');
                     item.innerHTML = `${titulo} - Cantidad: ${cantidad} <button class="btn btn-danger btn-sm remove-item">Quitar</button>`;
                     item.dataset.precio = precio;
                     item.dataset.cantidad = cantidad;
 
-                    // Agregar el elemento a la lista
                     lista.appendChild(item);
 
-                    // Calcular el monto total
                     montoTotal += precio * cantidad;
                     montoInput.value = montoTotal.toFixed(2);
 
-                    // Agregar evento para quitar libro
                     item.querySelector('.remove-item').addEventListener('click', function () {
                         montoTotal -= item.dataset.precio * item.dataset.cantidad;
                         montoInput.value = montoTotal.toFixed(2);
