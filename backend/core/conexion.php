@@ -1,4 +1,6 @@
-<?php
+
+<?php 
+
 // Function to connect to the database
 function Conectarse(){
     $host = 'localhost';
@@ -68,6 +70,34 @@ function modificacionCliente($cu, $nombre, $ci, $direccion, $telefono, $correo, 
     $resultado = pg_query($conexion, $consulta);
 
     pg_close($conexion);
+}
+
+function obtenerClientes()
+{
+    $conexion = Conectarse();
+
+    if (!$conexion) {
+        echo "<h1>No se puede conectar a la base de datos.</h1>";
+        exit();
+    }
+
+    $consulta = "SELECT * FROM Cliente";
+
+    $resultado = pg_query($conexion, $consulta);
+
+    // Check if query was successful
+    if (!$resultado) {
+        echo "Error en la consulta.";
+        exit();
+    }
+
+    // Fetch data from the result set
+    $clientes = pg_fetch_all($resultado);
+
+    // Close connection
+    pg_close($conexion);
+
+    return $clientes;
 }
 
 // Functions related to the Editorial table
@@ -1310,5 +1340,5 @@ function obtenerPedidosProveedorLibros()
     return $pedidosProveedorLibros;
 }
 
-
 ?>
+

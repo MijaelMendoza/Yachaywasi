@@ -6,6 +6,7 @@ class Cliente {
 
     public function __construct() {
         $this->db = Conectarse();
+
     }
 
     public function obtenerClientes() {
@@ -47,7 +48,7 @@ class Cliente {
     }
 
     public function eliminarCliente($cu) {
-        $stmt = $this->db->prepare("UPDATE Cliente WHERE cu = :cu SET estado = false");
+        $stmt = $this->db->prepare("UPDATE Cliente SET estado = false WHERE cu = :cu ");
         $stmt->bindParam(':cu', $cu, PDO::PARAM_INT);
         $stmt->execute();
     }
