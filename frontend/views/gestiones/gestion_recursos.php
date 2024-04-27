@@ -62,7 +62,7 @@ include '../templates/header.php';
 
         <div class="row">
             <div class="col">
-                <form action="../Registros/registrar_empleado.php" method="post">
+                <form action="registrar_Empleado.php" method="post">
                     <input type="hidden" name="sucursal"
                         value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
                     <input type="hidden" name="user_id"
@@ -82,7 +82,7 @@ include '../templates/header.php';
                     <input type="hidden" name="user_id"
                         value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
                     <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                        data-bs-target="#registroEmpleadoModal">
+                        data-bs-target="#registroProveedorModal">
                         <img src="../../images/registro_venta.png" alt="Proveedor" style="width: 100px;">
                         <div>REGISTRAR PROVEEDOR</div>
                     </button>
@@ -104,23 +104,180 @@ include '../templates/header.php';
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="registroEmpleadoModal" tabindex="-1" aria-labelledby="registroEmpleadoModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="registroEmpleadoModalLabel">REGISTRAR EMPLEADO</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-  
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Registrar</button>
-                </div>
+<!-- Ventana Modal de Registro de Empleado -->
+<div class="modal fade" id="registroEmpleadoModal" tabindex="-1" aria-labelledby="registroEmpleadoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="registroEmpleadoModalLabel">REGISTRAR EMPLEADO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Formulario de registro de empleado -->
+            <div class="modal-body">
+                <form id="formularioEmpleado">
+                    <div class="row mb-3">
+                        <!-- Columna Izquierda -->
+                        <div class="col-md-6">
+                            <div class="row mb-3">
+                                <!-- Campo de Nombre del Empleado -->
+                                <div class="col">
+                                    <label for="nombreEmpleado" class="form-label">Nombre del Empleado</label>
+                                    <input type="text" class="form-control" id="nombreEmpleado"
+                                        placeholder="Nombre del Empleado">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Carnet de Identidad -->
+                                <div class="col">
+                                    <label for="carnetIdentidad" class="form-label">Carnet de Identidad</label>
+                                    <input type="text" class="form-control" id="carnetIdentidad"
+                                        placeholder="Carnet de Identidad">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Dirección -->
+                                <div class="col">
+                                    <label for="direccion" class="form-label">Dirección</label>
+                                    <input type="text" class="form-control" id="direccion"
+                                        placeholder="Dirección">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Teléfono -->
+                                <div class="col">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono"
+                                        placeholder="#######">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Correo -->
+                                <div class="col">
+                                    <label for="correo" class="form-label">Correo</label>
+                                    <input type="email" class="form-control" id="correo"
+                                        placeholder="Correo">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Columna Derecha -->
+                        <div class="col-md-6">
+                            <div class="row mb-3">
+                                <!-- Campo de Fecha de Registro -->
+                                <div class="col">
+                                    <label for="fechaRegistro" class="form-label">Fecha de Registro</label>
+                                    <input type="date" class="form-control" id="fechaRegistro">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Cargo -->
+                                <div class="col">
+                                    <label for="cargo" class="form-label">Cargo</label>
+                                    <input type="text" class="form-control" id="cargo"
+                                        placeholder="Cargo">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Salario -->
+                                <div class="col">
+                                    <label for="salario" class="form-label">Salario (Bs)</label>
+                                    <input type="text" class="form-control" id="salario"
+                                        placeholder="Salario">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Sucursal -->
+                                <div class="col">
+                                    <label for="sucursal" class="form-label">Sucursal</label>
+                                    <select class="form-select" id="sucursal">
+                                        <option selected>Seleccione...</option>
+                                        <option value="1">Sucursal A</option>
+                                        <option value="2">Sucursal B</option>
+                                        <option value="3">Sucursal C</option>
+                                        <!-- Agrega más opciones según sea necesario -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="registrarEmpleadoBtn" disabled>Registrar</button>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Ventana Modal de Registro de Proveedor -->
+<div class="modal fade" id="registroProveedorModal" tabindex="-1" aria-labelledby="registroProveedorModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="registroProveedorModalLabel">REGISTRAR PROVEEDOR</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Formulario de registro de proveedor -->
+            <div class="modal-body">
+                <form id="formularioProveedor">
+                    <div class="row mb-3">
+                        <!-- Columna Izquierda -->
+                        <div class="col-md-6">
+                            <div class="row mb-3">
+                                <!-- Campo de Nombre del Proveedor -->
+                                <div class="col">
+                                    <label for="nombreProveedor" class="form-label">Nombre del Proveedor</label>
+                                    <input type="text" class="form-control" id="nombreProveedor"
+                                        placeholder="Nombre del Proveedor">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Teléfono -->
+                                <div class="col">
+                                    <label for="telefonoProveedor" class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefonoProveedor"
+                                        placeholder="#######">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Correo -->
+                                <div class="col">
+                                    <label for="correoProveedor" class="form-label">Correo</label>
+                                    <input type="email" class="form-control" id="correoProveedor"
+                                        placeholder="Correo">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Columna Derecha -->
+                        <div class="col-md-6">
+                            <div class="row mb-3">
+                                <!-- Campo de Fecha de Registro -->
+                                <div class="col">
+                                    <label for="fechaRegistroProveedor" class="form-label">Fecha de Registro</label>
+                                    <input type="date" class="form-control" id="fechaRegistroProveedor">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <!-- Campo de Contacto -->
+                                <div class="col">
+                                    <label for="contactoProveedor" class="form-label">Contacto </label>
+                                    <input type="text" class="form-control" id="contactoProveedor"
+                                        placeholder="Contacto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="registrarProveedorBtn" disabled>Registrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <div class="logout-container">
