@@ -82,9 +82,9 @@ include '../templates/header.php';
                     <input type="hidden" name="user_id"
                         value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
                     <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                        data-bs-target="#informeInventarioModal">
+                        data-bs-target="#informeInventarioModal"><a href="informeInventario.php" style="text-decoration: none;">
                         <img src="../../images/registro_venta.png" alt="Inventario" style="width: 100px;">
-                        <div>INFORME INVENTARIO</div>
+                        <div>INFORME INVENTARIO</div></a>
                     </button>
                 </form>
             </div>
