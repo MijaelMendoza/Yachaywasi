@@ -1,5 +1,5 @@
 <?php
-require_once 'C:\xampp\htdocs\Yachaywasi\backend\models\Cliente.php';
+include 'C:\xampp\htdocs\Yachaywasi\backend\models\Cliente.php';
 
 
 class ClienteController {

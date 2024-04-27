@@ -137,6 +137,7 @@ CREATE TABLE Ventas (
 -- Table: detalle_pedido
 CREATE TABLE detalle_pedido (
     cdo serial  NOT NULL,
+    precio_unitario numeric(10,2)  NOT NULL,
     Libros_cl int  NOT NULL,
     Pedidos_cpe int  NOT NULL,
     CONSTRAINT detalle_pedido_pk PRIMARY KEY (cdo)
@@ -145,7 +146,7 @@ CREATE TABLE detalle_pedido (
 -- Table: detalle_venta
 CREATE TABLE detalle_venta (
     cdv serial  NOT NULL,
-    precio_unitario int  NOT NULL,
+    precio_unitario numeric(10,2)  NOT NULL,
     Ventas_cv int  NOT NULL,
     Libros_cl int  NOT NULL,
     CONSTRAINT detalle_venta_pk PRIMARY KEY (cdv)
