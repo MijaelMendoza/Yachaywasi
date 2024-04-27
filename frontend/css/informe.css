@@ -1,0 +1,154 @@
+.modal-content {
+    background-color: #FFCEE8;
+    padding: 40px; /* Increased padding for all sides */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative; /* Position relative for child elements */
+    max-width: 500px; /* Limit the maximum width of the modal content */
+    width: 100%; /* Set width to 100% */
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack child elements vertically */
+    justify-content: flex-start; /* Align child elements to the start (left) */
+    align-items: flex-start; /* Align child elements to the start (left) */
+    margin-top: 50%;
+  }
+
+
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    
+    width: 100%;
+    height: 100%; /* Change height to 100% */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto; /* Allow vertical scrolling for the entire modal */
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+
+  .boton-guardar {
+    background-color: rgba(186, 223, 58, 1);
+      color: black;
+    padding: 15px 30px; /* Increased padding for button */
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Koulen';
+        font-size: 36px;
+  }
+  
+  
+  
+  
+  
+  button{
+    border-radius: 20px;
+    
+    background-color: rgba(186, 223, 58, 1);
+    color: black;
+    border-color:  rgba(186, 223, 58, 1);
+    
+  }
+
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: rgba(186, 223, 58, 1); /* Color naranja para el botón de cierre */
+}
+
+
+form {
+  margin-top: 20px; /* Add more margin to the top of the form */
+}
+label{
+  text-align: left;
+  
+  font-weight: bold;
+}
+
+  
+  
+  .form-group {
+    margin-bottom: 20px; /* Increased margin between form groups */
+  }
+
+
+  
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  textarea {
+    width: 70%; /* Set width to 100% to occupy the entire width of the modal */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-top: 10px; /* Add more margin to the top of form elements */
+    margin-left: 10px;
+    height: 100%;
+  }
+  
+  h2 {
+    color: #FF7001;
+    text-align: center;
+    font-family: 'Koulen';
+      font-size: 46px;
+  margin-left: 23%;
+  
+  }
+  
+  
+  h1 {
+    color: black;
+    text-align: left;
+    font-family: 'Koulen';
+      font-size: 24px;
+  
+  
+  }
+  
+
+  
+  
+  
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*---------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
