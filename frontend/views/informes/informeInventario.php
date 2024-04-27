@@ -46,7 +46,7 @@
         left: 0;
         width: 100%;
         height: 2%;
-        background-color:red;
+        background-color:darkred;
         z-index: 1; /* Ensure the line is above other content */
     }
 
@@ -56,7 +56,7 @@
 <h1 style="text-align:center;margin-top:2%;" class="mb-3">INFORME DE INVENTARIO</h1>
     <div class="line"></div></header>
     
-    <input style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23000\' width=\'24px\' height=\'24px\'%3E%3Cpath d=\'M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\'/%3E%3Cpath d=\'M0 0h24v24H0z\' fill=\'none\'/%3E%3C/svg%3E'); background-size: 20px; background-repeat: no-repeat; background-position: 10px center; padding-left: 40px; margin-left: 78%; width: 15%; border-radius: 40px; margin-top: 3.5%;" type="text" id="searchInput" onkeyup="searchTable()" placeholder="Buscar..">
+    <input style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23000\' width=\'24px\' height=\'24px\'%3E%3Cpath d=\'M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\'/%3E%3Cpath d=\'M0 0h24v24H0z\' fill=\'none\'/%3E%3C/svg%3E'); background-size: 20px; background-repeat: no-repeat; background-position: 10px center; padding-left: 40px; margin-left: 77%; width: 15%; border-radius: 40px; margin-top: 3.5%;" type="text" id="searchInput" onkeyup="searchTable()" placeholder="Buscar..">
 
 <div class="container mt-5">
     
@@ -152,7 +152,7 @@
     
 </div>
 <footer>
-<button id="regresarBtn" class="btn btn-danger" style="border-radius: 10px; margin-left:78%;margin-top:3%;width:15%;margin-bottom:3%;">CERRAR SESION</button>
+<button id="regresarBtn" class="btn btn-danger" style="border-radius: 10px; margin-left:78%;margin-top:3%;width:15%;margin-bottom:3%;background-color:orange;color:black;border-color:black;">CERRAR SESION</button>
 </footer>
 <script>
    
