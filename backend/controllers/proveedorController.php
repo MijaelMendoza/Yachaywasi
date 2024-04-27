@@ -1,15 +1,17 @@
 <?php
-require_once('../models/Proveedores.php');
+include 'C:\xampp\htdocs\Yachaywasi\backend\models\Proveedores.php';
 
-
-class ProveedoresController {
+class ProveedoresController
+{
     private $proveedoresModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->proveedoresModel = new ProveedoresModel();
     }
 
-    public function agregarProveedor($nombre, $contacto, $correo, $telefono, $estado) {
+    public function agregarProveedor($nombre, $contacto, $correo, $telefono, $estado)
+    {
         $estadoInt = $estado ? 1 : 0;
         if ($this->proveedoresModel->insertarProveedor($nombre, $contacto, $correo, $telefono, $estadoInt)) {
             echo "Proveedor agregado correctamente.";
@@ -18,7 +20,8 @@ class ProveedoresController {
         }
     }
 
-    public function mostrarProveedores() {
+    public function mostrarProveedores()
+    {
         $proveedores = $this->proveedoresModel->obtenerProveedores();
         if (!empty($proveedores)) {
             foreach ($proveedores as $proveedor) {
@@ -29,7 +32,8 @@ class ProveedoresController {
         }
     }
 
-    public function actualizarProveedor($cpr, $nombre, $contacto, $correo, $telefono, $estado) {
+    public function actualizarProveedor($cpr, $nombre, $contacto, $correo, $telefono, $estado)
+    {
         $estadoInt = $estado ? 1 : 0;
         if ($this->proveedoresModel->actualizarProveedor($cpr, $nombre, $contacto, $correo, $telefono, $estadoInt)) {
             echo "Proveedor actualizado correctamente.";
@@ -38,7 +42,8 @@ class ProveedoresController {
         }
     }
 
-    public function eliminarProveedor($cpr) {
+    public function eliminarProveedor($cpr)
+    {
         if ($this->proveedoresModel->eliminarProveedor($cpr)) {
             echo "Proveedor eliminado correctamente.";
         } else {
@@ -46,4 +51,3 @@ class ProveedoresController {
         }
     }
 }
-?>
