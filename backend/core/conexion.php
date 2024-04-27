@@ -1,11 +1,11 @@
-
-<?php 
+<?php
 
 // Function to connect to the database
-function Conectarse(){
+function Conectarse()
+{
     $host = 'localhost';
     $usuario = 'postgres';
-    $contrasena = '2455';
+    $contrasena = '3211';
     $nombre_bd = 'yachaywasi';
     try {
         $conn = @new PDO("pgsql:host=$host;dbname=$nombre_bd;user=$usuario;password=$contrasena");
@@ -292,24 +292,17 @@ function obtenerSucursales()
     }
 
     $consulta = "SELECT * FROM Sucursal";
-
-    $resultado = pg_query($conexion, $consulta);
-
-    // Check if query was successful
-    if (!$resultado) {
-        echo "Error en la consulta.";
+    try {
+        $statement = $conexion->prepare($consulta);
+        $statement->execute();
+        $sucursales = $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error en la consulta: " . $e->getMessage();
         exit();
     }
 
-    // Fetch data from the result set
-    $sucursales = pg_fetch_all($resultado);
-
-    // Close connection
-    pg_close($conexion);
-
     return $sucursales;
 }
-
 
 // Function to insert data into the Sucursal table
 function insertarSucursal($cs, $nombre, $direccion, $telefono, $correo)
@@ -377,28 +370,60 @@ function actualizarSucursal($cs, $nombre, $direccion, $telefono, $correo)
     pg_close($conexion);
 }
 
+// Function to verify employee existance
+function verificarEmpleadoExistente($ci, $correo)
+{
+    $conexion = Conectarse();
+    if (!$conexion) {
+        echo "<h1>No se puede verificar. Error al conectar.</h1>";
+        exit();
+    }
 
+    $stmt = $conexion->prepare("SELECT ca FROM Empleado WHERE ci = :ci OR correo = :correo");
+    $stmt->bindParam(':ci', $ci);
+    $stmt->bindParam(':correo', $correo);
+    $stmt->execute();
+    return $stmt->fetch() ? true : false;
+}
 
 // Function to insert data into the Empleado table
-function insertarEmpleado($ca, $nombre, $ci, $password, $direccion, $telefono, $correo, $cargo, $fecha_contratacion, $salario, $estado, $sucursal)
+function insertarEmpleado($nombre, $ci, $password, $direccion, $telefono, $correo, $cargo, $fecha_contratacion, $salario, $Sucursal_cs)
 {
     $conexion = Conectarse();
 
     if (!$conexion) {
-        echo "<h1>No se puede conectar a la base de datos.</h1>";
-        exit();
+        echo "No se puede conectar a la base de datos.";
+        return false;
     }
 
-    $consulta = "INSERT INTO Empleado (ca, nombre, ci, password, direccion, telefono, correo, cargo, fecha_contratacion, salario, estado, sucursal) VALUES ('$ca', '$nombre', '$ci', '$password', '$direccion', '$telefono', '$correo', '$cargo', '$fecha_contratacion', '$salario', '$estado', '$sucursal')";
+    try {
+        // Hash password
+        //$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $consulta = "INSERT INTO Empleado (nombre, ci, password, direccion, telefono, correo, cargo, fecha_contratacion, salario, estado, Sucursal_cs) 
+                     VALUES (:nombre, :ci, :password, :direccion, :telefono, :correo, :cargo, :fecha_contratacion, :salario, :estado, :Sucursal_cs)";
 
-    $resultado = pg_query($conexion, $consulta);
-
-    if (!$resultado) {
-        echo "Error al insertar datos.";
-        exit();
+        $stmt = $conexion->prepare($consulta);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':ci', $ci);
+        //$stmt->bindParam(':hashed_password', $hashed_password);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':direccion', $direccion);
+        $stmt->bindParam(':telefono', $telefono);
+        $stmt->bindParam(':correo', $correo);
+        $stmt->bindParam(':cargo', $cargo);
+        $stmt->bindParam(':fecha_contratacion', $fecha_contratacion);
+        $stmt->bindParam(':salario', $salario);
+        $estado = true;
+        $stmt->bindParam(':estado', $estado, PDO::PARAM_BOOL);
+        $stmt->bindParam(':Sucursal_cs', $Sucursal_cs, PDO::PARAM_INT);
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e) {
+        echo "Error al insertar datos: " . $e->getMessage();
+        return false;
+    } finally {
+        $conexion = null;
     }
-
-    pg_close($conexion);
 }
 
 // Function to delete data from the Empleado table
@@ -1341,4 +1366,3 @@ function obtenerPedidosProveedorLibros()
 }
 
 ?>
-

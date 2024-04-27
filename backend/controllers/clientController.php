@@ -38,5 +38,9 @@ class ClienteController
         $this->clienteModel->eliminarCliente($cu);
         echo "Cliente eliminado exitosamente!";
     }
+    public function verificarExistenciaCliente($ci, $correo)
+    {
+        return $this->clienteModel->buscarClientePorCiOCorreo($ci, $correo);
+    }
 }
 ?>

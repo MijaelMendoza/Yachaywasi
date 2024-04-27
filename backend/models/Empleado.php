@@ -1,5 +1,5 @@
 <?php
-include 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
+require_once 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
 
 class Empleado {
     private $db;
@@ -55,7 +55,7 @@ class Empleado {
     }
 
     public function eliminarEmpleado($ca) {
-        $stmt = $this->db->prepare("UPDATE Empleado WHERE ca = :ca SET estado = false");
+        $stmt = $this->db->prepare("UPDATE Empleado SET estado = false WHERE ca = :ca");
         $stmt->bindParam(':ca', $ca, PDO::PARAM_INT);
         $stmt->execute();
     }

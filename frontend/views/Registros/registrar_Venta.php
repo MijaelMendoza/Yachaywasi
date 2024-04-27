@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['accion']) && $_POST['accion'] === 'registrar_venta') {
+    if ($_POST['action'] == 'register_sale') {
         $fecha_venta = $_POST['fecha_venta'];
         $forma_pago = $_POST['forma_pago'];
         $cliente_cu = $_POST['cliente_cu'];
@@ -186,6 +186,7 @@ $libros = json_decode($libroController->listarLibros(), true);
     </div>
 </div>
 
+<input type="hidden" name="action" value="register_sale">
 <input type="hidden" id="clienteID" name="cliente_cu">
 <input type="hidden" id="libroID" name="libro_cl">
 
@@ -289,6 +290,7 @@ $libros = json_decode($libroController->listarLibros(), true);
 
             let cantidadTotal = 0;
             let formData = new FormData();
+            formData.append('action', 'register_sale');
             formData.append('fecha_venta', fecha);
             formData.append('forma_pago', formaPago);
             formData.append('cliente_cu', clienteId);
@@ -308,9 +310,8 @@ $libros = json_decode($libroController->listarLibros(), true);
                 body: formData
             }).then(response => response.text())
                 .then(data => {
-                    alert("Registro Exitoso");
+                    alert("Registro exitoso");
                     resetearFormulario();
-
                 })
                 .catch(error => {
                     console.error('Error:', error);
