@@ -7,16 +7,18 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $fecha_venta = $_POST['fecha_venta'];
-    $forma_pago = $_POST['forma_pago'];
-    $cliente_cu = $_POST['cliente_cu'];
-    $empleado_ca = $_SESSION['user_id'];
-    $sucursal_cs = $_SESSION['user_sucursal'];
-    $detalles = $_POST['detalles'] ?? [];
-    $cantidad = $_POST['cantidad'];
-    $monto = $_POST['monto'];
+    if (isset($_POST['accion']) && $_POST['accion'] === 'registrar_venta') {
+        $fecha_venta = $_POST['fecha_venta'];
+        $forma_pago = $_POST['forma_pago'];
+        $cliente_cu = $_POST['cliente_cu'];
+        $empleado_ca = $_SESSION['user_id'];
+        $sucursal_cs = $_SESSION['user_sucursal'];
+        $detalles = $_POST['detalles'] ?? [];
+        $cantidad = $_POST['cantidad'];
+        $monto = $_POST['monto'];
 
-    $ventasController->agregarVentaConDetalles($fecha_venta, $forma_pago, $monto, $cantidad, $cliente_cu, $empleado_ca, $sucursal_cs, $detalles);
+        $ventasController->agregarVentaConDetalles($fecha_venta, $forma_pago, $monto, $cantidad, $cliente_cu, $empleado_ca, $sucursal_cs, $detalles);
+    }
 }
 
 $clienteController = new ClienteController();
@@ -176,6 +178,7 @@ $libros = json_decode($libroController->listarLibros(), true);
                 </div>
             </div>
             <div class="modal-footer">
+                <input type="hidden" name="accion" value="registrar_venta">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary" id="registroVenta">Registrar</button>
             </div>
@@ -305,8 +308,8 @@ $libros = json_decode($libroController->listarLibros(), true);
                 body: formData
             }).then(response => response.text())
                 .then(data => {
-                        alert("Registro Exitoso");
-                        resetearFormulario();
+                    alert("Registro Exitoso");
+                    resetearFormulario();
 
                 })
                 .catch(error => {

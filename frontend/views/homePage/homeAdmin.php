@@ -100,10 +100,26 @@ if (isset($_POST['logout'])) {
                     </button>
                 </form>
             </div>
+
+            <div class="col">
+                <form action="registrar_cliente.php" method="post">
+                    <input type="hidden" name="sucursal"
+                        value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
+                    <input type="hidden" name="user_id"
+                        value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
+                        data-bs-target="#registroClienteModal">
+                        <img src="../../images/registro_venta.png" alt="Cliente" style="width: 100px;">
+                        <div>REGISTRAR CLIENTE</div>
+                    </button>
+                </form>
+            </div>
+
         </div>
     </div>
 
-    <?php include '../Registros/registrar_Venta.php'?>
+    <?php include '../Registros/registrar_Cliente.php' ?>
+    <?php include '../Registros/registrar_Venta.php' ?>
 
     <div class="logout-container">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
