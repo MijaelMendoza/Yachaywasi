@@ -40,14 +40,14 @@
         <thead>
             <tr>
                 <th>CL</th>
-                <th>Nombre</th>
-                <th>Género</th>
-                <th>Precio</th>
                 <th>Título</th>
+                <th>Género</th>
+                <th>Stock</th>
+                <th>Costo</th>
+                <th>Precio Unitario</th>
                 <th>Proveedor</th>
                 <th>Fecha de Recepción</th>
-                <th>Precio Unitario</th>
-                <th>Stock</th>
+                
             </tr>
         </thead>
         <tbody id="librosTableBody">
@@ -108,14 +108,15 @@
             foreach ($datos as $dato) {
                 echo "<tr>";
                 echo "<td>" . $dato['cl'] . "</td>";
-                echo "<td>" . $dato['nombre_libro'] . "</td>";
-                echo "<td>" . $dato['genero'] . "</td>";
-                echo "<td>" . $dato['precio'] . "</td>";
                 echo "<td>" . $dato['titulo'] . "</td>";
+                echo "<td>" . $dato['genero'] . "</td>";
+                echo "<td>" . $dato['stock'] . "</td>";
+                echo "<td>" . $dato['precio'] . "</td>";
+                echo "<td>" . $dato['precio_unitario'] . "</td>";
                 echo "<td>" . $dato['nombre_proveedor'] . "</td>";
                 echo "<td>" . $dato['fecha_repeccion'] . "</td>";
-                echo "<td>" . $dato['precio_unitario'] . "</td>";
-                echo "<td>" . $dato['stock'] . "</td>";
+                
+                
                 echo "</tr>";
             }
             ?>
