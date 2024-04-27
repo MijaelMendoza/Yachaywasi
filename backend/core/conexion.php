@@ -1,8 +1,9 @@
 
-<?php 
+<?php
 
 // Function to connect to the database
-function Conectarse(){
+function Conectarse()
+{
     $host = 'localhost';
     $usuario = 'postgres';
     $contrasena = '2455';
@@ -670,7 +671,7 @@ function obtenerVentas()
 
 
 // Function to insert data into the Libros table
-function insertarLibro($cl, $nombre, $genero, $precio, $titulo, $anioPublicacion, $stock, $editorial, $sucursal)
+function insertarLibro($nombre, $genero, $precio, $titulo, $editorial, $anioPublicacion, $stock, $Editorial_ce, $Sucursal_cs)
 {
     $conexion = Conectarse();
 
@@ -679,7 +680,7 @@ function insertarLibro($cl, $nombre, $genero, $precio, $titulo, $anioPublicacion
         exit();
     }
 
-    $consulta = "INSERT INTO Libros (cl, nombre, genero, precio, titulo, anioPublicacion, stock, editorial, sucursal) VALUES ('$cl', '$nombre', '$genero', '$precio', '$titulo', '$anioPublicacion', '$stock', '$editorial', '$sucursal')";
+    $consulta = "INSERT INTO Libros (nombre, genero, precio, titulo, editorial, anioPublicacion, stock, Editorial_ce, Sucursal_cs) VALUES ('$nombre', '$genero', '$precio', '$titulo', '$editorial', '$anioPublicacion', '$stock', '$Editorial_ce', '$Sucursal_cs')";
 
     $resultado = pg_query($conexion, $consulta);
 
@@ -714,7 +715,7 @@ function eliminarLibro($cl)
 }
 
 // Function to update data in the Libros table
-function actualizarLibro($cl, $nombre, $genero, $precio, $titulo, $anioPublicacion, $stock, $editorial, $sucursal)
+function actualizarLibro($cl, $nombre, $genero, $precio, $titulo, $editorial, $anioPublicacion, $stock, $Editorial_ce, $Sucursal_cs)
 {
     $conexion = Conectarse();
 
@@ -723,7 +724,7 @@ function actualizarLibro($cl, $nombre, $genero, $precio, $titulo, $anioPublicaci
         exit();
     }
 
-    $consulta = "UPDATE Libros SET nombre='$nombre', genero='$genero', precio='$precio', titulo='$titulo', anioPublicacion='$anioPublicacion', stock='$stock', editorial='$editorial', sucursal='$sucursal' WHERE cl='$cl'";
+    $consulta = "UPDATE Libros SET nombre='$nombre', genero='$genero', precio='$precio', titulo='$titulo', editorial='$editorial', anioPublicacion='$anioPublicacion', stock='$stock', Editorial_ce='$Editorial_ce', Sucursal_cs='$Sucursal_cs' WHERE cl='$cl'";
 
     $resultado = pg_query($conexion, $consulta);
 
@@ -762,7 +763,6 @@ function obtenerLibros()
 
     return $libros;
 }
-
 
 
 // Function to insert data into the Pedidos table
