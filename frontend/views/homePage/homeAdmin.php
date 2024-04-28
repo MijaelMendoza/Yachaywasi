@@ -74,20 +74,6 @@ if (isset($_POST['logout'])) {
             </div>
 
             <div class="col">
-                <form action="registrar_pedido.php" method="post">
-                    <input type="hidden" name="sucursal"
-                        value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
-                    <input type="hidden" name="user_id"
-                        value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                        data-bs-target="#registroPedidoModal">
-                        <img src="../../images/registro_venta.png" alt="Pedido" style="width: 100px;">
-                        <div>REGISTRAR PEDIDO</div>
-                    </button>
-                </form>
-            </div>
-
-            <div class="col">
                 <form action="registrar_cliente.php" method="post">
                     <input type="hidden" name="sucursal"
                         value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">

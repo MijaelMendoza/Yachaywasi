@@ -136,10 +136,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="cargo" class="form-label">Cargo</label>
-                                    <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo"
-                                        required>
+                                    <select class="form-control" id="cargo" name="cargo" required>
+                                        <option value="Admin">Administrador</option>
+                                        <option value="Empleado">Empleado</option>
+                                    </select>
                                 </div>
                             </div>
+
                             <!-- Campo de Salario -->
                             <div class="row mb-3">
                                 <div class="col">
@@ -153,7 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="col">
                                     <label for="sucursalProveedor" class="form-label">Sucursal</label>
                                     <select class="form-select" id="sucursalProveedor" name="Sucursal_cs" required>
-                                        <option selected>Seleccione...</option>
                                         <?php foreach ($sucursales as $sucursal): ?>
                                             <option value="<?php echo htmlspecialchars($sucursal['cs']); ?>">
                                                 <?php echo htmlspecialchars($sucursal['nombre']); ?>
