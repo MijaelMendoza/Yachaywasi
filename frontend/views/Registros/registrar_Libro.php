@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <!-- Formulario de registro de libro -->
             <div class="modal-body">
-                <form id="formularioLibro" action="tu_script_para_guardar_libro.php" method="post">
+                <form id="formularioLibro" action="../Registros/registrar_libro.php" method="post">
                     <div class="mb-3">
                         <label for="nombreLibro" class="form-label">Nombre del Libro</label>
                         <input type="text" class="form-control" id="nombreLibro" name="nombre" required placeholder="Nombre del Libro">

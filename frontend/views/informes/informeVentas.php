@@ -77,20 +77,8 @@
                 </thead>
                 <tbody id="ventasTableBody">
                     <?php
-                    // Function to connect to the database
-                    function Conectarse()
-                    {
-                        $host = 'localhost';
-                        $usuario = 'postgres';
-                        $contrasena = 'admin';
-                        $nombre_bd = 'Yachaywasi';
-                        try {
-                            $conn = @new PDO("pgsql:host=$host;dbname=$nombre_bd;user=$usuario;password=$contrasena");
-                        } catch (Exception $e) {
-                            echo $e->getMessage();
-                        }
-                        return $conn;
-                    }
+                    include '../../../backend/core/conexion.php';
+
                     // Function to retrieve data from the database
                     function obtenerDatos()
                     {
@@ -122,9 +110,9 @@
                         echo "<td>" . $dato['forma_pago'] . "</td>";
                         echo "<td>" . $dato['cantidad'] . "</td>";
                         echo "<td>" . $dato['monto'] . "</td>";
-                        echo "<td>" . $dato['Cliente_cu'] . "</td>";
-                        echo "<td>" . $dato['Empleado_ca'] . "</td>";
-                        echo "<td>" . $dato['Sucursal_cs'] . "</td>";
+                        echo "<td>" . $dato['cliente_cu'] . "</td>";
+                        echo "<td>" . $dato['empleado_ca'] . "</td>";
+                        echo "<td>" . $dato['sucursal_cs'] . "</td>";
                         echo "</tr>";
                     }
                     ?>

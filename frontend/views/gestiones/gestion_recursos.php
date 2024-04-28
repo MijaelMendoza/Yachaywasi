@@ -106,6 +106,7 @@ include '../templates/header.php';
         </div>
     </div>
 
+    <?php include '../Registros/registrar_Libro.php' ?>
     <?php include '../Registros/registrar_Empleado.php' ?>
   
     <!-- Ventana Modal de Registro de Proveedor -->
