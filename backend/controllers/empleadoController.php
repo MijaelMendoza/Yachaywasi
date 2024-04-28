@@ -64,4 +64,3 @@ class EmpleadoController
         echo "Empleado eliminado exitosamente!";
     }
 }
-?>

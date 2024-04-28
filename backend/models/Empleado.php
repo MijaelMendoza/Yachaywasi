@@ -1,27 +1,32 @@
 <?php
 require_once 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
 
-class Empleado {
+class Empleado
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = Conectarse();
     }
 
-    public function obtenerEmpleados() {
+    public function obtenerEmpleados()
+    {
         $stmt = $this->db->prepare("SELECT * FROM Empleado");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function obtenerEmpleadoPorId($ca) {
+    public function obtenerEmpleadoPorId($ca)
+    {
         $stmt = $this->db->prepare("SELECT * FROM Empleado WHERE ca = :ca");
         $stmt->bindParam(':ca', $ca, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function agregarEmpleado($nombre, $ci, $password, $direccion, $telefono, $correo, $cargo, $fecha_contratacion, $salario, $estado, $Sucursal_cs) {
+    public function agregarEmpleado($nombre, $ci, $password, $direccion, $telefono, $correo, $cargo, $fecha_contratacion, $salario, $estado, $Sucursal_cs)
+    {
         $stmt = $this->db->prepare("INSERT INTO Empleado (nombre, ci, password, direccion, telefono, correo, cargo, fecha_contratacion, salario, estado, Sucursal_cs) VALUES (:nombre, :ci, :password, :direccion, :telefono, :correo, :cargo, :fecha_contratacion, :salario, :estado, :Sucursal_cs)");
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':ci', $ci);
@@ -37,7 +42,8 @@ class Empleado {
         $stmt->execute();
     }
 
-    public function actualizarEmpleado($ca, $nombre, $ci, $password, $direccion, $telefono, $correo, $cargo, $fecha_contratacion, $salario, $estado, $Sucursal_cs) {
+    public function actualizarEmpleado($ca, $nombre, $ci, $password, $direccion, $telefono, $correo, $cargo, $fecha_contratacion, $salario, $estado, $Sucursal_cs)
+    {
         $stmt = $this->db->prepare("UPDATE Empleado SET nombre = :nombre, ci = :ci, password = :password, direccion = :direccion, telefono = :telefono, correo = :correo, cargo = :cargo, fecha_contratacion = :fecha_contratacion, salario = :salario, estado = :estado, Sucursal_cs = :Sucursal_cs WHERE ca = :ca");
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':ci', $ci);
@@ -54,10 +60,10 @@ class Empleado {
         $stmt->execute();
     }
 
-    public function eliminarEmpleado($ca) {
-        $stmt = $this->db->prepare("UPDATE Empleado SET estado = false WHERE ca = :ca");
+    public function eliminarEmpleado($ca)
+    {
+        $stmt = $this->db->prepare("UPDATE Empleado WHERE ca = :ca SET estado = false");
         $stmt->bindParam(':ca', $ca, PDO::PARAM_INT);
         $stmt->execute();
     }
 }
-?>

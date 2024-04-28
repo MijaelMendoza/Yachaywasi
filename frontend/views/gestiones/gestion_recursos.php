@@ -61,12 +61,9 @@ include '../templates/header.php';
         <div class="row">
             <div class="col">
                 <form action="registrar_Empleado.php" method="post">
-                    <input type="hidden" name="sucursal"
-                        value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
-                    <input type="hidden" name="user_id"
-                        value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                        data-bs-target="#registroEmpleadoModal">
+                    <input type="hidden" name="sucursal" value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registroEmpleadoModal">
                         <img src="../../images/registro_venta.png" alt="Empleado" style="width: 100px;">
                         <div>REGISTRAR EMPLEADO</div>
                     </button>
@@ -75,12 +72,9 @@ include '../templates/header.php';
 
             <div class="col">
                 <form action="registrar_proveedor.php" method="post">
-                    <input type="hidden" name="sucursal"
-                        value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
-                    <input type="hidden" name="user_id"
-                        value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                        data-bs-target="#registroProveedorModal">
+                    <input type="hidden" name="sucursal" value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registroProveedorModal">
                         <img src="../../images/registro_venta.png" alt="Proveedor" style="width: 100px;">
                         <div>REGISTRAR PROVEEDOR</div>
                     </button>
@@ -88,13 +82,22 @@ include '../templates/header.php';
             </div>
 
             <div class="col">
+                <form action="registrar_libro.php" method="post">
+                    <input type="hidden" name="sucursal" value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registroLibroModal">
+                        <img src="../../images/registro_venta.png" alt="Libro" style="width: 100px;">
+                        <div>REGISTRAR LIBRO</div>
+                    </button>
+                </form>
+            </div>
+
+
+            <div class="col">
                 <form action="registrar_pedido.php" method="post">
-                    <input type="hidden" name="sucursal"
-                        value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
-                    <input type="hidden" name="user_id"
-                        value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                        data-bs-target="#registroEmpleadoModal">
+                    <input type="hidden" name="sucursal" value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registroEmpleadoModal">
                         <img src="../../images/registro_venta.png" alt="Pedido" style="width: 100px;">
                         <div>REGISTRAR PEDIDO</div>
                     </button>
