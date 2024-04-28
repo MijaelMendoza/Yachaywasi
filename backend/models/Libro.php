@@ -5,7 +5,8 @@ class Libro
 {
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = Conectarse();
     }
 
@@ -24,15 +25,35 @@ class Libro
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function agregarLibro($nombre, $genero, $precio, $titulo, $editorial, $anioPublicacion, $stock, $Editorial_ce, $Sucursal_cs)
+    public function agregarLibro($genero, $precio, $titulo, $anioPublicacion, $stock, $Editorial_ce, $Sucursal_cs)
     {
-        $stmt = $this->db->prepare("INSERT INTO Libros (nombre, genero, precio, titulo, editorial, anioPublicacion, stock, Editorial_ce, Sucursal_cs) VALUES (:nombre, :genero, :precio, :titulo, :editorial, :anioPublicacion, :stock, :Editorial_ce, :Sucursal_cs)");
-        $stmt->execute();
+        try {
+            $stmt = $this->db->prepare("INSERT INTO Libros (genero, precio, titulo, anioPublicacion, stock, Editorial_ce, Sucursal_cs) VALUES (:genero, :precio, :titulo, :anioPublicacion, :stock, :Editorial_ce, :Sucursal_cs)");
+            $stmt->bindParam(':genero', $genero);
+            $stmt->bindParam(':precio', $precio);
+            $stmt->bindParam(':titulo', $titulo);
+            $stmt->bindParam(':anioPublicacion', $anioPublicacion);
+            $stmt->bindParam(':stock', $stock);
+            $stmt->bindParam(':Editorial_ce', $Editorial_ce);
+            $stmt->bindParam(':Sucursal_cs', $Sucursal_cs);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 
-    public function actualizarLibro($cl, $nombre, $genero, $precio, $titulo, $editorial, $anioPublicacion, $stock, $Editorial_ce, $Sucursal_cs)
+    public function actualizarLibro($cl, $genero, $precio, $titulo, $anioPublicacion, $stock, $Editorial_ce, $Sucursal_cs)
     {
-        $stmt = $this->db->prepare("UPDATE Libros SET nombre = :nombre, genero = :genero, precio = :precio, titulo = :titulo, editorial = :editorial, anioPublicacion = :anioPublicacion, stock = :stock, Editorial_ce = :Editorial_ce, Sucursal_cs = :Sucursal_cs WHERE cl = :cl");
+        $stmt = $this->db->prepare("UPDATE Libros SET genero = :genero, precio = :precio, titulo = :titulo, anioPublicacion = :anioPublicacion, stock = :stock, Editorial_ce = :Editorial_ce, Sucursal_cs = :Sucursal_cs WHERE cl = :cl");
+        $stmt->bindParam(':cl', $cl, PDO::PARAM_INT);
+        $stmt->bindParam(':genero', $genero);
+        $stmt->bindParam(':precio', $precio);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':anioPublicacion', $anioPublicacion);
+        $stmt->bindParam(':stock', $stock);
+        $stmt->bindParam(':Editorial_ce', $Editorial_ce);
+        $stmt->bindParam(':Sucursal_cs', $Sucursal_cs);
         $stmt->execute();
     }
 

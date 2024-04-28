@@ -167,3 +167,19 @@ function validarDatosCliente($nombre, $ci, $direccion, $telefono, $correo, $fech
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var today = new Date();
+        var day = today.getDate();
+        var month = today.getMonth() + 1;
+        var year = today.getFullYear();
+
+        day = (day < 10) ? '0' + day : day;
+        month = (month < 10) ? '0' + month : month;
+
+        var todayFormatted = year + '-' + month + '-' + day;
+        document.getElementById('fecha').value = todayFormatted;
+    });
+
+</script>

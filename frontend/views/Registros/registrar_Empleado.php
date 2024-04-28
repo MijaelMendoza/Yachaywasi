@@ -1,5 +1,5 @@
 <?php
-include '../../../backend/core/conexion.php';
+include_once '../../../backend/core/conexion.php';
 $sucursales = obtenerSucursales();
 function validarDatosEmpleado($nombre, $ci, $password, $direccion, $telefono, $correo, $cargo, $fecha_contratacion, $salario, $Sucursal_cs)
 {

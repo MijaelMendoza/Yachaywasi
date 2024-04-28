@@ -154,9 +154,8 @@ function modificacionEditorial($ce, $nombre, $contacto, $direccion, $telefono, $
     pg_close($conexion);
 }
 
-function obtenerEditoriales()
-{
-    $conexion = Conectarse();
+function obtenerEditoriales() {
+    $conexion = Conectarse(); // Asegúrate de que esta función devuelve un objeto PDO
 
     if (!$conexion) {
         echo "<h1>No se puede conectar a la base de datos.</h1>";
@@ -164,23 +163,18 @@ function obtenerEditoriales()
     }
 
     $consulta = "SELECT * FROM Editorial";
-
-    $resultado = pg_query($conexion, $consulta);
-
-    // Check if query was successful
-    if (!$resultado) {
-        echo "Error en la consulta.";
+    try {
+        $stmt = $conexion->prepare($consulta);
+        $stmt->execute();
+        $editoriales = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error en la consulta: " . $e->getMessage();
         exit();
     }
 
-    // Fetch data from the result set
-    $editoriales = pg_fetch_all($resultado);
-
-    // Close connection
-    pg_close($conexion);
-
     return $editoriales;
 }
+
 
 // Function to retrieve data from the Proveedores table
 function obtenerProveedores()

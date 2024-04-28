@@ -73,7 +73,7 @@ $libros = json_decode($libroController->listarLibros(), true);
                                 <p>
                                     <input type="text" id="buscarLibro" class="form-control mb-3"
                                         placeholder="Buscar libro por título...">
-                                <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
+                                <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -111,7 +111,7 @@ $libros = json_decode($libroController->listarLibros(), true);
                                 <p>
                                     <input type="text" id="buscarCliente" class="form-control mb-3"
                                         placeholder="Buscar cliente por nombre...">
-                                <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
+                                <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -144,7 +144,7 @@ $libros = json_decode($libroController->listarLibros(), true);
                             <!-- Campo de Fecha -->
                             <div class="col">
                                 <label for="fecha" class="form-label">Fecha</label>
-                                <input type="date" class="form-control" id="fecha">
+                                <input type="date" class="form-control" id="fechaV" name="fechaV">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -319,7 +319,7 @@ $libros = json_decode($libroController->listarLibros(), true);
         }
     });
 
-    window.onload = function () {
+    document.addEventListener('DOMContentLoaded', function () {
         var today = new Date();
         var day = today.getDate();
         var month = today.getMonth() + 1;
@@ -329,8 +329,9 @@ $libros = json_decode($libroController->listarLibros(), true);
         month = (month < 10) ? '0' + month : month;
 
         var todayFormatted = year + '-' + month + '-' + day;
-        document.getElementById('fecha').value = todayFormatted;
-    };
+        document.getElementById('fechaV').value = todayFormatted;
+    });
+
 
     function validarFormulario() {
         let nombreCliente = document.getElementById('nombreCliente').value;

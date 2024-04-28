@@ -1,7 +1,6 @@
 <?php
 include 'C:\xampp\htdocs\Yachaywasi\backend\models\Libro.php';
 
-
 class LibroController
 {
     private $libroModel;
@@ -25,19 +24,36 @@ class LibroController
 
     public function crearLibro($datosLibro)
     {
-        $this->libroModel->agregarLibro($datosLibro['nombre'], $datosLibro['genero'], $datosLibro['precio'], $datosLibro['titulo'], $datosLibro['editorial'], $datosLibro['anioPublicacion'], $datosLibro['stock'], $datosLibro['Editorial_ce'], $datosLibro['Sucursal_cs']);
-        echo "Libro creado exitosamente!";
+        $resultado = $this->libroModel->agregarLibro(
+            $datosLibro['genero'], 
+            $datosLibro['precio'], 
+            $datosLibro['titulo'], 
+            $datosLibro['anioPublicacion'], 
+            $datosLibro['stock'], 
+            $datosLibro['Editorial_ce'], 
+            $datosLibro['Sucursal_cs']
+        );
+        echo $resultado ? "Libro creado exitosamente!" : "Error al crear libro.";
     }
 
     public function actualizarLibro($cl, $datosLibro)
     {
-        $this->libroModel->actualizarLibro($cl, $datosLibro['nombre'], $datosLibro['genero'], $datosLibro['precio'], $datosLibro['titulo'], $datosLibro['editorial'], $datosLibro['anioPublicacion'], $datosLibro['stock'], $datosLibro['Editorial_ce'], $datosLibro['Sucursal_cs']);
-        echo "Libro actualizado exitosamente!";
+        $resultado = $this->libroModel->actualizarLibro(
+            $cl, 
+            $datosLibro['genero'], 
+            $datosLibro['precio'], 
+            $datosLibro['titulo'], 
+            $datosLibro['anioPublicacion'], 
+            $datosLibro['stock'], 
+            $datosLibro['Editorial_ce'], 
+            $datosLibro['Sucursal_cs']
+        );
+        echo $resultado ? "Libro actualizado exitosamente!" : "Error al actualizar libro.";
     }
 
     public function eliminarLibro($cl)
     {
-        $this->libroModel->eliminarLibro($cl);
-        echo "Libro eliminado exitosamente!";
+        $resultado = $this->libroModel->eliminarLibro($cl);
+        echo $resultado ? "Libro eliminado exitosamente!" : "Error al eliminar libro.";
     }
 }

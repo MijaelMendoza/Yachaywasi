@@ -64,11 +64,9 @@ CREATE TABLE Envios (
 -- Table: Libros
 CREATE TABLE Libros (
     cl serial  NOT NULL,
-    nombre varchar(50)  NOT NULL,
     genero varchar(20)  NOT NULL,
     precio numeric(10,2)  NOT NULL,
     titulo varchar(50)  NOT NULL,
-    editorial varchar(50)  NOT NULL,
     anioPublicacion int  NOT NULL,
     stock int  NOT NULL,
     Editorial_ce int  NOT NULL,
