@@ -100,12 +100,13 @@
                             exit();
                         }
 
-                        $consulta = "SELECT l.cl, l.nombre AS nombre_libro, l.genero, l.precio, l.titulo, p.nombre AS nombre_proveedor, pp.fecha_repeccion, dv.precio_unitario, l.stock 
-                             FROM Libros l
-                             INNER JOIN pedidos_proveedores_libros ppl ON l.cl = ppl.Libros_cl
-                             INNER JOIN Pedidos_proveedores pp ON ppl.Pedidos_proveedores_cpep = pp.cpep
-                             INNER JOIN Proveedores p ON pp.Proveedores_cpr = p.cpr
-                             INNER JOIN detalle_venta dv ON l.cl = dv.Libros_cl";
+                        $consulta = "SELECT l.cl, l.genero, l.precio, l.titulo, pp.fecha_repeccion, dv.precio_unitario, l.stock 
+                        FROM Libros l
+                        INNER JOIN pedidos_proveedores_libros ppl ON l.cl = ppl.Libros_cl
+                        INNER JOIN Pedidos_proveedores pp ON ppl.Pedidos_proveedores_cpep = pp.cpep
+                        INNER JOIN Proveedores p ON pp.Proveedores_cpr = p.cpr
+                        INNER JOIN detalle_venta dv ON l.cl = dv.Libros_cl
+                        ";
 
                         // Execute the query
                         $resultado = $conexion->query($consulta);
