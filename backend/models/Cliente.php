@@ -1,5 +1,5 @@
 <?php
-include 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
+include_once 'C:\xampp\htdocs\Yachaywasi\backend\core\conexion.php';
 
 class Cliente {
     private $db;

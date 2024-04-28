@@ -1,6 +1,5 @@
 <?php
-require_once('../models/Venta.php');
-
+include 'C:\xampp\htdocs\Yachaywasi\backend\models\Venta.php';
 
 class VentasController {
     private $ventasModel;
@@ -9,14 +8,25 @@ class VentasController {
         $this->ventasModel = new VentasModel();
     }
 
-    public function agregarVenta($fecha_venta, $forma_pago, $cantidad, $monto, $cliente_cu, $empleado_ca, $sucursal_cs) {
-        if ($this->ventasModel->insertarVenta($fecha_venta, $forma_pago, $cantidad, $monto, $cliente_cu, $empleado_ca, $sucursal_cs)) {
-            echo "Venta agregada correctamente.";
-        } else {
-            echo "Error al agregar la venta.";
+    public function agregarVentaConDetalles($fecha_venta, $forma_pago, $monto, $cantidad, $cliente_cu, $empleado_ca, $sucursal_cs, $detalles) {
+        try {
+            if ($venta_id = $this->ventasModel->insertarVenta($fecha_venta, $forma_pago, $cantidad, $monto, $cliente_cu, $empleado_ca, $sucursal_cs)) {
+                foreach ($detalles as $detalle) {
+                    if ($this->ventasModel->insertarDetalleVenta($venta_id, $detalle['libro_id'], $detalle['precio_unitario'])) {
+                        $this->ventasModel->actualizarStockLibro($detalle['libro_id'], $detalle['cantidad']);
+                    } else {
+                        throw new Exception("Error al insertar el detalle de la venta.");
+                    }
+                }
+                echo "Venta y detalles agregados correctamente.";
+            } else {
+                throw new Exception("Error al agregar la venta.");
+            }
+        } catch (Exception $e) {
+            echo "Error al agregar la venta y los detalles: " . $e->getMessage();
         }
     }
-
+    
     public function mostrarVentas() {
         $ventas = $this->ventasModel->obtenerVentas();
         if (!empty($ventas)) {
