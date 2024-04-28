@@ -1,17 +1,20 @@
 <?php
-require_once '../../../backend/controllers/proveedorController.php';
+include_once '../../../backend/core/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['accion']) && $_POST['accion'] === 'registrar_proveedor') {
-        $nombre = $_POST['nombre'];
-        $telefono = $_POST['telefono'];
-        $correo = $_POST['correo'];
-        $fecha_registro = $_POST['fecha_registro'];
-        $contacto = $_POST['contacto'];
+        if (empty($_POST['nombreProveedor']) || empty($_POST['contactoProveedor']) || empty($_POST['correoProveedor']) || empty($_POST['telefonoProveedor'])) {
+            echo "<script>alert('Todos los campos son obligatorios. Por favor, complete todos los campos.');</script>";
+        } else {
+            $nombre = $_POST['nombreProveedor'];
+            $contacto = $_POST['contactoProveedor'];
+            $correo = $_POST['correoProveedor'];
+            $telefono = $_POST['telefonoProveedor'];
 
-        $proveedorController = new ProveedoresController();
+            insertarProveedor($nombre, $contacto, $correo, $telefono);
 
-        $proveedorController->agregarProveedor($nombre, $contacto, $correo, $telefono, true); // true representa el estado del proveedor (activo)
+            echo "<script>alert('Proveedor registrado con éxito');</script>";
+        }
     }
 }
 ?>
@@ -26,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <!-- Formulario de registro de proveedor -->
             <div class="modal-body">
-                <form id="formularioProveedor">
+                <form id="formularioProveedor" method="POST">
                     <div class="row mb-3">
                         <!-- Columna Izquierda -->
                         <div class="col-md-6">
@@ -34,21 +37,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <!-- Campo de Nombre del Proveedor -->
                                 <div class="col">
                                     <label for="nombreProveedor" class="form-label">Nombre del Proveedor</label>
-                                    <input type="text" class="form-control" id="nombreProveedor" placeholder="Nombre del Proveedor">
+                                    <input type="text" class="form-control" id="nombreProveedor" name="nombreProveedor" placeholder="Nombre del Proveedor">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <!-- Campo de Teléfono -->
                                 <div class="col">
                                     <label for="telefonoProveedor" class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefonoProveedor" placeholder="#######">
+                                    <input type="text" class="form-control" id="telefonoProveedor" name="telefonoProveedor" placeholder="#######">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <!-- Campo de Correo -->
                                 <div class="col">
                                     <label for="correoProveedor" class="form-label">Correo</label>
-                                    <input type="email" class="form-control" id="correoProveedor" placeholder="Correo">
+                                    <input type="email" class="form-control" id="correoProveedor" name="correoProveedor" placeholder="Correo">
                                 </div>
                             </div>
                         </div>
@@ -64,17 +67,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="row mb-3">
                                 <!-- Campo de Contacto -->
                                 <div class="col">
-                                    <label for="contactoProveedor" class="form-label">Contacto </label>
-                                    <input type="text" class="form-control" id="contactoProveedor" placeholder="Contacto">
+                                    <label for="contactoProveedor" class="form-label">Contacto</label>
+                                    <input type="text" class="form-control" id="contactoProveedor" name="contactoProveedor" placeholder="Contacto">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="accion" value="registrar_proveedor">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="registrarProveedorBtn">Registrar</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="registrarProveedorBtn" disabled>Registrar</button>
             </div>
         </div>
     </div>

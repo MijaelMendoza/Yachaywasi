@@ -5,26 +5,30 @@ $editoriales = obtenerEditoriales();
 $libroController = new LibroController();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] === 'registrar_libro') {
-    $nombre = $_POST['nombre'];
-    $genero = $_POST['genero'];
-    $precio = $_POST['precio'];
-    $titulo = $_POST['titulo'];
-    $anioPublicacion = $_POST['anioPublicacion'];
-    $stock = $_POST['stock'];
-    $sucursal_cs = $_SESSION['user_sucursal'];
-    $editorial_ce = $_POST['editorial'];
+    if (empty($_POST['nombre']) || empty($_POST['genero']) || empty($_POST['precio']) || empty($_POST['titulo']) || empty($_POST['anioPublicacion']) || empty($_POST['stock']) || empty($_POST['editorial'])) {
+        echo "<script>alert('Todos los campos son obligatorios. Por favor, complete todos los campos.');</script>";
+    } else {
+        $nombre = $_POST['nombre'];
+        $genero = $_POST['genero'];
+        $precio = $_POST['precio'];
+        $titulo = $_POST['titulo'];
+        $anioPublicacion = $_POST['anioPublicacion'];
+        $stock = $_POST['stock'];
+        $sucursal_cs = $_SESSION['user_sucursal'];
+        $editorial_ce = $_POST['editorial'];
 
-    $libroController->crearLibro([
-        'genero' => $genero,
-        'precio' => $precio,
-        'titulo' => $titulo,
-        'anioPublicacion' => $anioPublicacion,
-        'stock' => $stock,
-        'Editorial_ce' => $editorial_ce,
-        'Sucursal_cs' => $sucursal_cs
-    ]);
+        $libroController->crearLibro([
+            'genero' => $genero,
+            'precio' => $precio,
+            'titulo' => $titulo,
+            'anioPublicacion' => $anioPublicacion,
+            'stock' => $stock,
+            'Editorial_ce' => $editorial_ce,
+            'Sucursal_cs' => $sucursal_cs
+        ]);
 
-    echo '<p>Libro registrado exitosamente!</p>';
+        echo "<script>alert('Libro registrado con éxito');</script>";
+    }
 }
 ?>
 

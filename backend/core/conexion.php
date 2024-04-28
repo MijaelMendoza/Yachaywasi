@@ -1,7 +1,8 @@
 <?php
 
 // Function to connect to the database
-function Conectarse(){
+function Conectarse()
+{
     $host = 'localhost';
     $usuario = 'postgres';
     $contrasena = '3211';
@@ -154,7 +155,8 @@ function modificacionEditorial($ce, $nombre, $contacto, $direccion, $telefono, $
     pg_close($conexion);
 }
 
-function obtenerEditoriales() {
+function obtenerEditoriales()
+{
     $conexion = Conectarse(); // Asegúrate de que esta función devuelve un objeto PDO
 
     if (!$conexion) {
@@ -207,25 +209,21 @@ function obtenerProveedores()
 
 
 // Function to insert data into the Proveedores table
-function insertarProveedor($cpr, $nombre, $contacto, $correo, $telefono)
+function insertarProveedor($nombre, $contacto, $correo, $telefono)
 {
     $conexion = Conectarse();
+    try {
+        $consulta = $conexion->prepare("INSERT INTO Proveedores (nombre, contacto, correo, telefono, estado) VALUES (:nombre, :contacto, :correo, :telefono, true)");
 
-    if (!$conexion) {
-        echo "<h1>No se puede conectar a la base de datos.</h1>";
-        exit();
+        $consulta->bindParam(':nombre', $nombre);
+        $consulta->bindParam(':contacto', $contacto);
+        $consulta->bindParam(':correo', $correo);
+        $consulta->bindParam(':telefono', $telefono);
+        $consulta->execute();
+
+    } catch (PDOException $e) {
+        echo "Error al insertar datos: " . $e->getMessage();
     }
-
-    $consulta = "INSERT INTO Proveedores (cpr, nombre, contacto, correo, telefono) VALUES ('$cpr', '$nombre', '$contacto', '$correo', '$telefono')";
-
-    $resultado = pg_query($conexion, $consulta);
-
-    if (!$resultado) {
-        echo "Error al insertar datos.";
-        exit();
-    }
-
-    pg_close($conexion);
 }
 
 // Function to delete data from the Proveedores table
