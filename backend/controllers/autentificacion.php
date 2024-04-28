@@ -1,6 +1,9 @@
 <?php
 session_start(); 
-
+$host = "localhost";
+$dbname = "yachaywasi";
+$user = "postgres";
+$password = "admin"; 
 
 function Conectarse()
 {
