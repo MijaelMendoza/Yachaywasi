@@ -5,6 +5,18 @@ require_once '../../../backend/core/Conexion.php';
 
 ?>
 
+<?php
+// Función para obtener los datos de un libro por su ID
+function obtenerLibroPorId($conn, $id) {
+    $stmt = $conn->prepare("SELECT cl, nombre, genero, precio, titulo, editorial, anio_publicacion, stock FROM Libros WHERE cl = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+$conn = Conectarse();
+?>
+
 <div class="max-w-6xl mx-auto p-8">
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-3xl font-bold">INVENTARIO</h1>
@@ -47,8 +59,6 @@ require_once '../../../backend/core/Conexion.php';
       </thead>
       <tbody>
         <?php
-        $conn = Conectarse();
-
         $stmt = $conn->prepare("SELECT cl, nombre, stock, sucursal_cs FROM Libros"); // Modificar la consulta para referenciar la columna correcta
         $stmt->execute();
         $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -128,7 +138,7 @@ require_once '../../../backend/core/Conexion.php';
             </div>
 
             <input type="hidden" id="cl" name="cl" value="">
-            <input type="hidden" id="sucursal" name="sucursal" value="<?php echo $valor_sucursal; ?>">
+            <input type="hidden" id="sucursal" name="sucursal" value="">
           </form>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
             <button id="cancelarEdicionLibro" class="btn btn-danger me-md-2" type="button" data-bs-dismiss="modal">CANCELAR</button>
@@ -157,8 +167,36 @@ require_once '../../../backend/core/Conexion.php';
   }
 
   function fillEditModal(cl) {
-    
-  }
+    fetch('../../../backend/models/Libro.php?cl=' + cl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('No se pudo obtener los datos del libro');
+            }
+            return response.json();
+        })
+        .then(libro => {
+            // Verificar si se recibieron datos del libro correctamente
+            if (Object.keys(libro).length === 0 && libro.constructor === Object) {
+                throw new Error('No se recibieron datos del libro');
+            }
+
+            document.getElementById("nombreLibro").value = libro.nombre;
+            document.getElementById("genero").value = libro.genero;
+            document.getElementById("precio").value = libro.precio;
+            document.getElementById("titulo").value = libro.titulo;
+            document.getElementById("editorial").value = libro.editorial;
+            document.getElementById("anioPublicacion").value = libro.anioPublicacion; 
+            document.getElementById("cantidad").value = libro.stock;
+            document.getElementById("cl").value = libro.cl;
+            document.getElementById("sucursal").value = libro.sucursal_cs;
+        })
+        .catch(error => console.error('Error al obtener los datos del libro:', error));
+}
+
+
+
+
+
 
   function guardarCambiosLibro() {
     var cl = document.getElementById("cl").value;
@@ -169,30 +207,38 @@ require_once '../../../backend/core/Conexion.php';
     var editorial = document.getElementById("editorial").value;
     var anioPublicacion = document.getElementById("anioPublicacion").value;
     var stock = document.getElementById("cantidad").value;
-    var sucursal = document.getElementById("sucursal").value; 
-    
+    var sucursal = document.getElementById("sucursal").value;
+
     fetch('../../../backend/models/Libro.php', {
-      method: 'POST',
-      body: JSON.stringify({
-        cl: cl,
-        nombre: nombre,
-        genero: genero,
-        precio: precio,
-        titulo: titulo,
-        editorial: editorial,
-        anioPublicacion: anioPublicacion,
-        stock: stock,
-        sucursal: sucursal 
-      })
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            cl: cl,
+            nombre: nombre,
+            genero: genero,
+            precio: precio,
+            titulo: titulo,
+            editorial: editorial,
+            anioPublicacion: anioPublicacion,
+            stock: stock,
+            sucursal: sucursal
+        })
     })
     .then(response => {
-      if (!response.ok) {
-        throw new Error('No se pudieron guardar los cambios');
-      }
-      location.reload();
+        if (!response.ok) {
+            throw new Error('No se pudieron guardar los cambios');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data.message); // Muestra el mensaje de éxito o error
+        location.reload(); // Recarga la página después de guardar los cambios
     })
     .catch(error => console.error('Error al guardar los cambios:', error));
-  }
+}
+    
 
   // Función para filtrar la tabla
   function filterTable() {
