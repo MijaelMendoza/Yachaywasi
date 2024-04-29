@@ -6,7 +6,6 @@ require_once '../../../backend/core/Conexion.php';
 ?>
 
 <?php
-// Función para obtener los datos de un libro por su ID
 function obtenerLibroPorId($conn, $id) {
     $stmt = $conn->prepare("SELECT cl, nombre, genero, precio, titulo, editorial, anio_publicacion, stock FROM Libros WHERE cl = :id");
     $stmt->bindParam(':id', $id);
@@ -59,12 +58,12 @@ $conn = Conectarse();
       </thead>
       <tbody>
         <?php
-        $stmt = $conn->prepare("SELECT cl, nombre, stock, sucursal_cs FROM Libros"); // Modificar la consulta para referenciar la columna correcta
+        $stmt = $conn->prepare("SELECT cl, nombre, stock, sucursal_cs FROM Libros"); 
         $stmt->execute();
         $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         foreach ($libros as $libro) {
-          $valor_sucursal = $libro['sucursal_cs']; // Actualizar el nombre de la columna
+          $valor_sucursal = $libro['sucursal_cs']; 
           echo "<tr>";
           echo "<td class='border-b p-4'>" . $libro['cl'] . "</td>";
           echo "<td class='border-b p-4'>" . $libro['nombre'] . "</td>";
@@ -175,7 +174,6 @@ $conn = Conectarse();
             return response.json();
         })
         .then(libro => {
-            // Verificar si se recibieron datos del libro correctamente
             if (Object.keys(libro).length === 0 && libro.constructor === Object) {
                 throw new Error('No se recibieron datos del libro');
             }
@@ -198,7 +196,7 @@ $conn = Conectarse();
 
 
 
-  function guardarCambiosLibro() {
+function guardarCambiosLibro() {
     var cl = document.getElementById("cl").value;
     var nombre = document.getElementById("nombreLibro").value;
     var genero = document.getElementById("genero").value;
@@ -208,6 +206,11 @@ $conn = Conectarse();
     var anioPublicacion = document.getElementById("anioPublicacion").value;
     var stock = document.getElementById("cantidad").value;
     var sucursal = document.getElementById("sucursal").value;
+
+    if (!cl || !nombre || !genero || !precio || !titulo || !editorial || !anioPublicacion || !stock || !sucursal) {
+        console.error('Todos los campos son obligatorios');
+        return;
+    }
 
     fetch('../../../backend/models/Libro.php', {
         method: 'POST',
@@ -233,14 +236,13 @@ $conn = Conectarse();
         return response.json();
     })
     .then(data => {
-        console.log(data.message); // Muestra el mensaje de éxito o error
-        location.reload(); // Recarga la página después de guardar los cambios
+        console.log(data.message); 
+        location.reload(); 
     })
     .catch(error => console.error('Error al guardar los cambios:', error));
 }
-    
 
-  // Función para filtrar la tabla
+    
   function filterTable() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("searchInput");

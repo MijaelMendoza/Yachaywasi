@@ -31,22 +31,25 @@ class Libro
     }
 
     public function actualizarLibro($cl, $nombre, $genero, $precio, $titulo, $editorial, $anioPublicacion, $stock, $sucursal)
-{
-    $stmt = $this->db->prepare("UPDATE Libros SET nombre = :nombre, genero = :genero, precio = :precio, titulo = :titulo, editorial = :editorial, anioPublicacion = :anioPublicacion, stock = :stock, Sucursal_cs = :sucursal WHERE cl = :cl");
-    $stmt->bindParam(':nombre', $nombre);
-    $stmt->bindParam(':genero', $genero);
-    $stmt->bindParam(':precio', $precio);
-    $stmt->bindParam(':titulo', $titulo);
-    $stmt->bindParam(':editorial', $editorial);
-    $stmt->bindParam(':anioPublicacion', $anioPublicacion);
-    $stmt->bindParam(':stock', $stock);
-    $stmt->bindParam(':sucursal', $sucursal); // Cambiar 'sucursal' a 'Sucursal_cs'
-    $stmt->bindParam(':cl', $cl);
-    $stmt->execute();
-}
+    {
+        $stmt = $this->db->prepare("UPDATE Libros SET nombre = :nombre, genero = :genero, precio = :precio, titulo = :titulo, editorial = :editorial, anioPublicacion = :anioPublicacion, stock = :stock, Sucursal_cs = :sucursal WHERE cl = :cl");
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':genero', $genero);
+        $stmt->bindParam(':precio', $precio);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':editorial', $editorial);
+        $stmt->bindParam(':anioPublicacion', $anioPublicacion);
+        $stmt->bindParam(':stock', $stock);
+        $stmt->bindParam(':sucursal', $sucursal); 
+        $stmt->bindParam(':cl', $cl);
+        $stmt->execute();
 
-
-
+        if ($stmt->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function eliminarLibro($cl)
     {
@@ -58,6 +61,7 @@ class Libro
             return false; 
         }
     }
+
     public function handleGetRequest($cl = null)
     {
         if ($cl !== null) {
@@ -75,6 +79,7 @@ class Libro
             http_response_code(200); 
         }
     }
+
     public function handleDeleteRequest($cl)
     {
         if ($this->eliminarLibro($cl)) {
@@ -86,21 +91,21 @@ class Libro
         }
     }
 }
-// Verificar si la solicitud es POST
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $libro = new Libro();
-    $cl = $_POST['cl'];
-    $nombre = $_POST['nombre'];
-    $genero = $_POST['genero'];
-    $precio = $_POST['precio'];
-    $titulo = $_POST['titulo'];
-    $editorial = $_POST['editorial'];
-    $anioPublicacion = $_POST['anioPublicacion'];
-    $stock = $_POST['stock'];
-    $sucursal = $_POST['sucursal'];
+    $data = json_decode(file_get_contents("php://input"), true);
 
     $libro = new Libro();
 
+    $cl = $data['cl'];
+    $nombre = $data['nombre'];
+    $genero = $data['genero'];
+    $precio = $data['precio'];
+    $titulo = $data['titulo'];
+    $editorial = $data['editorial'];
+    $anioPublicacion = $data['anioPublicacion'];
+    $stock = $data['stock'];
+    $sucursal = $data['sucursal'];
 
     if ($libro->actualizarLibro($cl, $nombre, $genero, $precio, $titulo, $editorial, $anioPublicacion, $stock, $sucursal)) {
         echo json_encode(array("message" => "Los cambios se guardaron correctamente."));
