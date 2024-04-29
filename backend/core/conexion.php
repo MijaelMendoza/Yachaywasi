@@ -5,7 +5,7 @@ function Conectarse()
 {
     $host = 'localhost';
     $usuario = 'postgres';
-    $contrasena = '3211';
+    $contrasena = 'admin';
     $nombre_bd = 'yachaywasi';
     try {
         $conn = @new PDO("pgsql:host=$host;dbname=$nombre_bd;user=$usuario;password=$contrasena");
