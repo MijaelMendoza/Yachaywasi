@@ -63,14 +63,15 @@ CREATE TABLE Envios (
 
 -- Table: Libros
 CREATE TABLE Libros (
-    cl serial  NOT NULL,
-    genero varchar(20)  NOT NULL,
-    precio numeric(10,2)  NOT NULL,
-    titulo varchar(50)  NOT NULL,
-    anioPublicacion int  NOT NULL,
-    stock int  NOT NULL,
-    Editorial_ce int  NOT NULL,
-    Sucursal_cs int  NOT NULL,
+    cl serial NOT NULL,
+    genero varchar(20) NOT NULL,
+    precio numeric(10,2) NOT NULL,
+    titulo varchar(50) NOT NULL,
+    anioPublicacion int NOT NULL,
+    stock int NOT NULL,
+    Editorial_ce int NOT NULL,
+    Sucursal_cs int NOT NULL,
+    estado boolean DEFAULT true NOT NULL,
     CONSTRAINT Libros_pk PRIMARY KEY (cl)
 );
 

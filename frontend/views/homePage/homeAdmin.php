@@ -87,78 +87,8 @@ if (isset($_POST['logout'])) {
                 </form>
             </div>
 
-            <div class="col">
-                <form action="registrar_ingreso.php" method="post">
-                    <input type="hidden" name="sucursal"
-                        value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
-                    <input type="hidden" name="user_id"
-                        value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                        data-bs-target="#registroIngresoModal">
-                        <img src="../../images/registro_venta.png" alt="Ingreso" style="width: 100px;">
-                        <div>REGISTRAR INGRESO</div>
-                    </button>
-                </form>
-            </div>
         </div>
     </div>
-
-    <!-- Ventana Modal de Registro de Clientes -->
-<div class="modal fade" id="registroClienteModal" tabindex="-1" aria-labelledby="registroClienteModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title" id="registroClienteModalLabel">REGISTRO DE CLIENTES</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="max-w-6xl mx-auto p-8 bg-white shadow-lg">
-          <form>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Nombre">
-              </div>
-              <div class="col-md-6">
-                <label for="carnet" class="form-label">Carnet de Identidad</label>
-                <input type="text" class="form-control" id="carnet" placeholder="Carnet de Identidad">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="correo" class="form-label">Correo</label>
-                <input type="email" class="form-control" id="correo" placeholder="Correo">
-              </div>
-              <div class="col-md-6">
-                <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="direccion" placeholder="Dirección">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="telefono" placeholder="Teléfono">
-              </div>
-              <div class="col-md-6">
-                <label for="fecha" class="form-label">Fecha de Registro</label>
-                <input type="date" class="form-control" id="fecha" value="2024-04-23">
-              </div>
-            </div>
-          </form>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                <button id="cancelarRegistro" class="btn btn-danger me-md-2" type="button" data-bs-dismiss="modal">CANCELAR</button>
-                <button id="registrarCliente" class="btn btn-success" type="button">REGISTRAR</button>
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
 
     <?php include '../Registros/registrar_Cliente.php' ?>
     <?php include '../Registros/registrar_Venta.php' ?>

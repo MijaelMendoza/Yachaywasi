@@ -65,7 +65,7 @@ class Libro
 
     public function eliminarLibro($cl)
     {
-        $stmt = $this->db->prepare("DELETE FROM Libros WHERE cl = :cl");
+        $stmt = $this->db->prepare("UPDATE Libros SET estado = false WHERE cl = :cl");
         $stmt->bindParam(':cl', $cl, PDO::PARAM_INT);
         if ($stmt->execute()) {
             return true; 
@@ -87,7 +87,6 @@ class Libro
             }
         } else {
             $libros = $this->obtenerLibros();
-            echo json_encode($libros);
             http_response_code(200); 
         }
     }
@@ -110,7 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $libro = new Libro();
 
     $cl = $data['cl'];
-    $nombre = $data['nombre'];
     $genero = $data['genero'];
     $precio = $data['precio'];
     $titulo = $data['titulo'];
@@ -119,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stock = $data['stock'];
     $sucursal = $data['sucursal'];
 
-    if ($libro->actualizarLibro($cl, $nombre, $genero, $precio, $titulo, $editorial, $anioPublicacion, $stock, $sucursal)) {
+    if ($libro->actualizarLibro($cl, $genero, $precio, $titulo, $anioPublicacion, $stock, $editorial, $sucursal)) {
         echo json_encode(array("message" => "Los cambios se guardaron correctamente."));
         http_response_code(200); // OK
     } else {
