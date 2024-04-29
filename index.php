@@ -19,9 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['user_name'] = $user['nombre'];
                     $_SESSION['user_sucursal'] = $user['sucursal_cs'];
                     $_SESSION['user_id'] = $user['ca'];
+                    $_SESSION['isAdmin'] = true;
                     header("Location: ./frontend/views/homePage/homeAdmin.php");
                 } else if ($user['cargo'] === 'Empleado') {
-                    header("Location: dashboard_empleado.php");
+                    $_SESSION['user_name'] = $user['nombre'];
+                    $_SESSION['user_sucursal'] = $user['sucursal_cs'];
+                    $_SESSION['user_id'] = $user['ca'];
+                    $_SESSION['isAdmin'] = false;
+                    header("Location: ./frontend/views/homePage/homeEmpleado.php");
                 }
                 exit();
             } else {

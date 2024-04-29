@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../../../backend/models/Libro.php';
 include '../templates/header.php';
 require_once '../../../backend/core/Conexion.php';
@@ -39,8 +40,10 @@ $conn = Conectarse();
           <th class="border-b-2 p-4">ID</th>
           <th class="border-b-2 p-4">Titulo</th>
           <th class="border-b-2 p-4">Cantidad</th>
-          <th class="border-b-2 p-4">Editar</th>
-          <th class="border-b-2 p-4">Eliminar</th>
+          <?php if ($_SESSION['isAdmin']): ?>
+            <th class="border-b-2 p-4">Editar</th>
+            <th class="border-b-2 p-4">Eliminar</th>
+          <?php endif; ?>
         </tr>
       </thead>
       <tbody>
@@ -50,22 +53,22 @@ $conn = Conectarse();
         $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($libros as $libro) {
-          $valor_sucursal = $libro['sucursal_cs'];
           echo "<tr>";
           echo "<td class='border-b p-4'>" . $libro['cl'] . "</td>";
           echo "<td class='border-b p-4'>" . $libro['titulo'] . "</td>";
           echo "<td class='border-b p-4'>" . $libro['stock'] . "</td>";
-          echo "<td class='border-b p-4'>
-                <button class='bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-4 rounded' onclick='fillEditModal(" . $libro['cl'] . ")' data-bs-toggle='modal' data-bs-target='#edicionLibroModal'>
-                          EDITAR
-                        </button>
-                      </td>";
-
-          echo "<td class='border-b p-4'>
-                <button class='bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded' onclick='eliminarLibro(" . $libro['cl'] . ")'>
-                    ELIMINAR
+          if ($_SESSION['isAdmin']) {
+            echo "<td class='border-b p-4'>
+                    <button class='bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-4 rounded' onclick='fillEditModal(" . $libro['cl'] . ")' data-bs-toggle='modal' data-bs-target='#edicionLibroModal'>
+                      EDITAR
                     </button>
-                </td>";
+                  </td>";
+            echo "<td class='border-b p-4'>
+                    <button class='bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded' onclick='eliminarLibro(" . $libro['cl'] . ")'>
+                      ELIMINAR
+                    </button>
+                  </td>";
+          }
           echo "</tr>";
         }
         ?>
