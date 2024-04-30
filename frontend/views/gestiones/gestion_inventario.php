@@ -201,7 +201,7 @@ $conn = Conectarse();
     }
 
     fetch('../../../backend/models/Libro.php', {
-      method: 'POST',
+      method: 'POSTU',
       headers: {
         'Content-Type': 'application/json'
       },

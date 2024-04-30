@@ -97,7 +97,7 @@ include '../templates/header.php';
                 <form action="registrar_pedido.php" method="post">
                     <input type="hidden" name="sucursal" value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
                     <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registroEmpleadoModal">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registroPedidoModal">
                         <img src="../../images/registro_venta.png" alt="Pedido" style="width: 100px;">
                         <div>REGISTRAR PEDIDO</div>
                     </button>
@@ -109,6 +109,7 @@ include '../templates/header.php';
     <?php include '../Registros/registrar_Libro.php' ?>
     <?php include '../Registros/registrar_Empleado.php' ?>
     <?php include '../Registros/registrar_Proveedor.php' ?>
+    <?php include '../Registros/registrar_Pedido.php' ?>
 
     <div class="logout-container">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">

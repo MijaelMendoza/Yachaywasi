@@ -68,9 +68,9 @@ class Libro
         $stmt = $this->db->prepare("UPDATE Libros SET estado = false WHERE cl = :cl");
         $stmt->bindParam(':cl', $cl, PDO::PARAM_INT);
         if ($stmt->execute()) {
-            return true; 
+            return true;
         } else {
-            return false; 
+            return false;
         }
     }
 
@@ -80,14 +80,14 @@ class Libro
             $libro = $this->obtenerLibroPorId($cl);
             if ($libro) {
                 echo json_encode($libro);
-                http_response_code(200); 
+                http_response_code(200);
             } else {
                 echo json_encode(array("message" => "No se encontró el libro."));
-                http_response_code(404); 
+                http_response_code(404);
             }
         } else {
             $libros = $this->obtenerLibros();
-            http_response_code(200); 
+            http_response_code(200);
         }
     }
 
@@ -95,15 +95,15 @@ class Libro
     {
         if ($this->eliminarLibro($cl)) {
             echo json_encode(array("message" => "El libro se eliminó correctamente."));
-            http_response_code(200); 
+            http_response_code(200);
         } else {
             echo json_encode(array("message" => "No se pudo eliminar el libro."));
-            http_response_code(500); 
+            http_response_code(500);
         }
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POSTU') {
     $data = json_decode(file_get_contents("php://input"), true);
 
     $libro = new Libro();
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code(200); // OK
     } else {
         echo json_encode(array("message" => "No se pudieron guardar los cambios."));
-        http_response_code(500); 
+        http_response_code(500);
     }
 }
 
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $libro->handleDeleteRequest($cl);
     } else {
         echo json_encode(array("message" => "Se requiere proporcionar un ID de libro válido."));
-        http_response_code(400); 
+        http_response_code(400);
     }
 }
 ?>

@@ -103,7 +103,7 @@ function validarDatosCliente($nombre, $ci, $direccion, $telefono, $correo, $fech
             </div>
             <div class="modal-body">
                 <div class="max-w-6xl mx-auto p-8 bg-white shadow-lg">
-                    <form method="POST" action="">
+                    <form method="POST">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="nombre" class="form-label">Nombre</label>

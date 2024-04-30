@@ -91,7 +91,9 @@ CREATE TABLE Pedidos (
 -- Table: Pedidos_proveedores
 CREATE TABLE Pedidos_proveedores (
     cpep serial  NOT NULL,
+    forma_pago varchar(50)  NOT NULL,
     cantidad int  NOT NULL,
+    monto numeric(10,2)  NOT NULL,
     fecha_pedido date  NOT NULL,
     fecha_repeccion date  NOT NULL,
     Proveedores_cpr int  NOT NULL,

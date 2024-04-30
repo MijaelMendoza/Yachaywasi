@@ -33,7 +33,7 @@ class LibroController
             $datosLibro['Editorial_ce'], 
             $datosLibro['Sucursal_cs']
         );
-        echo $resultado ? "Libro creado exitosamente!" : "Error al crear libro.";
+        //echo $resultado ? "Libro creado exitosamente!" : "Error al crear libro.";
     }
 
     public function actualizarLibro($cl, $datosLibro)

@@ -5,10 +5,9 @@ $editoriales = obtenerEditoriales();
 $libroController = new LibroController();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] === 'registrar_libro') {
-    if (empty($_POST['nombre']) || empty($_POST['genero']) || empty($_POST['precio']) || empty($_POST['titulo']) || empty($_POST['anioPublicacion']) || empty($_POST['stock']) || empty($_POST['editorial'])) {
+    if (empty($_POST['genero']) || empty($_POST['precio']) || empty($_POST['titulo']) || empty($_POST['anioPublicacion']) || empty($_POST['stock']) || empty($_POST['editorial'])) {
         echo "<script>alert('Todos los campos son obligatorios. Por favor, complete todos los campos.');</script>";
     } else {
-        $nombre = $_POST['nombre'];
         $genero = $_POST['genero'];
         $precio = $_POST['precio'];
         $titulo = $_POST['titulo'];
@@ -45,9 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
             <div class="modal-body">
                 <form id="formularioLibro" method="POST" action="">
                     <div class="mb-3">
-                        <label for="nombreLibro" class="form-label">Nombre del Libro</label>
-                        <input type="text" class="form-control" id="nombreLibro" name="nombre" required
-                            placeholder="Nombre del Libro">
+                        <label for="tituloLibro" class="form-label">Título</label>
+                        <input type="text" class="form-control" id="tituloLibro" name="titulo" required
+                            placeholder="Título del Libro">
                     </div>
                     <div class="mb-3">
                         <label for="generoLibro" class="form-label">Género</label>
@@ -60,16 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                             placeholder="Precio del Libro">
                     </div>
                     <div class="mb-3">
-                        <label for="tituloLibro" class="form-label">Título</label>
-                        <input type="text" class="form-control" id="tituloLibro" name="titulo" required
-                            placeholder="Título del Libro">
-                    </div>
-                    <div class="mb-3">
                         <label for="editorialLibro" class="form-label">Editorial</label>
                         <select class="form-control" id="editorialLibro" name="editorial" required>
                             <?php foreach ($editoriales as $editorial): ?>
                                 <option value="<?= htmlspecialchars($editorial['ce']) ?>">
-                                    <?= htmlspecialchars($editorial['nombre']) ?></option>
+                                    <?= htmlspecialchars($editorial['nombre']) ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>

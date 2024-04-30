@@ -23,13 +23,7 @@ class ProveedoresController
     public function mostrarProveedores()
     {
         $proveedores = $this->proveedoresModel->obtenerProveedores();
-        if (!empty($proveedores)) {
-            foreach ($proveedores as $proveedor) {
-                echo "Proveedor #{$proveedor['cpr']}: Nombre: {$proveedor['nombre']}, Contacto: {$proveedor['contacto']}, Correo: {$proveedor['correo']}, Teléfono: {$proveedor['telefono']}, Estado: {$proveedor['estado']}<br>";
-            }
-        } else {
-            echo "No hay proveedores registrados.";
-        }
+        return json_encode($proveedores);
     }
 
     public function actualizarProveedor($cpr, $nombre, $contacto, $correo, $telefono, $estado)

@@ -1,31 +1,47 @@
 <?php
 require_once '../../../backend/controllers/librosController.php';
-require_once '../../../backend/controllers/clientController.php';
-require_once '../../../backend/controllers/ventaController.php';
-$ventasController = new VentasController();
+require_once '../../../backend/controllers/proveedorController.php';
+require_once '../../../backend/controllers/pedidoProveedorController.php';
+require_once '../../../backend/core/Conexion.php';
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['accion'] == 'register_sale') {
-        $fecha_venta = $_POST['fecha_venta'];
-        $forma_pago = $_POST['forma_pago'];
-        $cliente_cu = $_POST['cliente_cu'];
-        $empleado_ca = $_SESSION['user_id'];
-        $sucursal_cs = $_SESSION['user_sucursal'];
-        $detalles = $_POST['detalles'] ?? [];
-        $cantidad = $_POST['cantidad'];
-        $monto = $_POST['monto'];
 
-        $ventasController->agregarVentaConDetalles($fecha_venta, $forma_pago, $monto, $cantidad, $cliente_cu, $empleado_ca, $sucursal_cs, $detalles);
-    }
-}
-
-$clienteController = new ClienteController();
-$clientes = json_decode($clienteController->listarClientes(), true);
+$proveedoresController = new ProveedoresController();
+$proveedores = json_decode($proveedoresController->mostrarProveedores(), true);
 
 $libroController = new LibroController();
 $libros = json_decode($libroController->listarLibros(), true);
+
+$pedidoProveedorController = new PedidosProveedoresController();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_POST['accion'] == 'registrar_pedido') {
+        $formaPago = $_POST['forma_pago'];
+        $montoTotal = $_POST['monto'];
+        $proveedorID = $_POST['proveedores_cpr'];
+        $detalles = $_POST['detalles'] ?? [];
+        $fechaPedido = !empty($_POST['fecha_pedido']) ? new DateTime($_POST['fecha_pedido']) : new DateTime();
+
+        $fechaRecepcion = clone $fechaPedido;
+        $fechaRecepcion->add(new DateInterval('P5D'));
+        
+        $fechaPedidoFormatted = $fechaPedido->format('Y-m-d');
+        $fechaRecepcionFormatted = $fechaRecepcion->format('Y-m-d');
+        
+        $pedidoProveedorController->agregarPedidoConDetalles(
+            $formaPago,
+            array_sum(array_column($detalles, 'cantidad')),
+            $montoTotal,
+            $fechaPedidoFormatted,
+            $fechaRecepcionFormatted,
+            $proveedorID,
+            $detalles
+        );
+        exit;
+    }
+}
 ?>
 <style>
     #miModalAncho {
@@ -37,12 +53,12 @@ $libros = json_decode($libroController->listarLibros(), true);
         overflow-y: auto;
     }
 
-    #tablaClientes .cliente-row {
+    #tablaProveedores .proveedor-row {
         cursor: pointer;
         transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
     }
 
-    #tablaClientes .cliente-row:hover {
+    #tablaProveedores .proveedor-row:hover {
         background-color: #e0e0e0;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         color: #333;
@@ -53,22 +69,22 @@ $libros = json_decode($libroController->listarLibros(), true);
     }
 </style>
 
-<!-- Ventana Modal de Registro de Venta -->
-<div class="modal fade" id="registroVentaModal" tabindex="-1" aria-labelledby="registroVentaModalLabel"
+<!-- Pedidona Modal de Registro de Pedido -->
+<div class="modal fade" id="registroPedidoModal" tabindex="-1" aria-labelledby="registroPedidoModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl" id="miModalAncho">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="registroVentaModalLabel">REGISTRAR VENTA</h5>
+                <h5 class="modal-title" id="registroPedidoModalLabel">REGISTRAR PEDIDO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-- Formulario de registro de ventas -->
+            <!-- Formulario de registro de pedidos -->
             <div class="modal-body">
                 <div class="table-responsive" style="max-height: 700px; overflow-y: auto;">
                     <div class="modal-body" style="max-height: 350px;">
                         <div class="row">
                             <div class="col-md-6">
-                                <!-- Lista de libros disponibles para agregar a la venta -->
+                                <!-- Lista de libros disponibles para agregar a la pedido -->
                                 <p>Libros
                                 <p>
                                     <input type="text" id="buscarLibro" class="form-control mb-3"
@@ -106,31 +122,31 @@ $libros = json_decode($libroController->listarLibros(), true);
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <!-- Lista de clientes disponibles para seleccionar en la venta -->
-                                <p>Clientes
+                                <!-- Lista de proveedores disponibles para seleccionar en la pedido -->
+                                <p>Proveedores
                                 <p>
-                                    <input type="text" id="buscarCliente" class="form-control mb-3"
-                                        placeholder="Buscar cliente por nombre...">
+                                    <input type="text" id="buscarProveedor" class="form-control mb-3"
+                                        placeholder="Buscar proveedor por nombre...">
                                 <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">CU</th>
+                                                <th scope="col">CPR</th>
                                                 <th scope="col">Nombre</th>
-                                                <th scope="col">CI</th>
-                                                <th scope="col">Teléfono</th>
+                                                <th scope="col">Contacto</th>
                                                 <th scope="col">Correo</th>
+                                                <th scope="col">Teléfono</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="tablaClientes">
-                                            <?php foreach ($clientes as $cliente): ?>
-                                                <tr class="cliente-row"
-                                                    data-cliente-id="<?php echo htmlspecialchars($cliente['cu']); ?>">
-                                                    <td><?php echo htmlspecialchars($cliente['cu']); ?></td>
-                                                    <td><?php echo htmlspecialchars($cliente['nombre']); ?></td>
-                                                    <td><?php echo htmlspecialchars($cliente['ci']); ?></td>
-                                                    <td><?php echo htmlspecialchars($cliente['telefono']); ?></td>
-                                                    <td><?php echo htmlspecialchars($cliente['correo']); ?></td>
+                                        <tbody id="tablaProveedores">
+                                            <?php foreach ($proveedores as $proveedor): ?>
+                                                <tr class="proveedor-row"
+                                                    data-proveedor-id="<?php echo htmlspecialchars($proveedor['cpr']); ?>">
+                                                    <td><?php echo htmlspecialchars($proveedor['cpr']); ?></td>
+                                                    <td><?php echo htmlspecialchars($proveedor['nombre']); ?></td>
+                                                    <td><?php echo htmlspecialchars($proveedor['contacto']); ?></td>
+                                                    <td><?php echo htmlspecialchars($proveedor['correo']); ?></td>
+                                                    <td><?php echo htmlspecialchars($proveedor['telefono']); ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -157,11 +173,11 @@ $libros = json_decode($libroController->listarLibros(), true);
                                     <option value="Tarjeta">Tarjeta</option>
                                 </select>
                             </div>
-                            <!-- Campo de Nombre del Cliente -->
+                            <!-- Campo de Nombre del Proveedor -->
                             <div class="col">
-                                <label for="nombreCliente" class="form-label">Nombre Cliente</label>
-                                <input type="text" class="form-control" id="nombreCliente"
-                                    placeholder="Nombre del cliente" readonly>
+                                <label for="nombreProveedorPed" class="form-label">Nombre Proveedor</label>
+                                <input type="text" class="form-control" id="nombreProveedorPed"
+                                    placeholder="Nombre del proveedor" readonly>
                             </div>
                         </div>
                         <!-- Lista de libros agregados y monto total -->
@@ -178,27 +194,28 @@ $libros = json_decode($libroController->listarLibros(), true);
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="hidden" name="accion" value="registrar_venta">
+                <input type="hidden" name="accion" value="registrar_pedido">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="registroVenta">Registrar</button>
+                <button type="button" class="btn btn-primary" id="registroPedido">Registrar</button>
             </div>
         </div>
     </div>
 </div>
 
-<input type="hidden" name="accion" value="register_sale">
-<input type="hidden" id="clienteID" name="cliente_cu">
+<input type="hidden" name="accion" value="registrar_pedido">
+<input type="hidden" id="proveedorID" name="proveedores_cpr">
 <input type="hidden" id="libroID" name="libro_cl">
 
 <script>
-    document.querySelectorAll('.cliente-row').forEach(row => {
+    document.querySelectorAll('.proveedor-row').forEach(row => {
         row.addEventListener('click', function () {
-            const clienteId = this.getAttribute('data-cliente-id');
-            const nombreCliente = this.cells[1].textContent;
-            document.getElementById('nombreCliente').value = nombreCliente;
-            document.getElementById('clienteID').value = clienteId;
+            const proveedorid = this.getAttribute('data-proveedor-id');
+            const nombreProveedorPed = this.cells[1].textContent;
+            document.getElementById('nombreProveedorPed').value = nombreProveedorPed;
+            document.getElementById('proveedorID').value = proveedorid;
         });
     });
+
 
     document.querySelectorAll('.btn-agregar').forEach(button => {
         button.addEventListener('click', function () {
@@ -236,9 +253,9 @@ $libros = json_decode($libroController->listarLibros(), true);
         });
     });
 
-    document.getElementById('buscarCliente').addEventListener('input', function () {
+    document.getElementById('buscarProveedor').addEventListener('input', function () {
         let buscaTexto = this.value.toLowerCase();
-        let filas = document.querySelectorAll('#tablaClientes tr');
+        let filas = document.querySelectorAll('#tablaProveedores tr');
         filas.forEach(row => {
             let nombre = row.cells[1].textContent.toLowerCase();
             if (nombre.includes(buscaTexto)) {
@@ -249,14 +266,6 @@ $libros = json_decode($libroController->listarLibros(), true);
         });
     });
 
-    document.querySelectorAll('.btn-elegir').forEach(button => {
-        button.addEventListener('click', function () {
-            const clienteId = this.getAttribute('data-cliente-id');
-            const nombreCliente = this.closest('tr').cells[1].textContent;
-            document.getElementById('nombreCliente').value = nombreCliente;
-            document.getElementById('clienteID').value = clienteId;
-        });
-    });
 
     document.getElementById('buscarLibro').addEventListener('input', function () {
         let buscaTexto = this.value.toLowerCase();
@@ -273,27 +282,27 @@ $libros = json_decode($libroController->listarLibros(), true);
 
     function resetearFormulario() {
         document.getElementById('formaPago').value = 'Seleccione...';
-        document.getElementById('nombreCliente').value = '';
+        document.getElementById('nombreProveedorPed').value = '';
         document.getElementById('monto').value = '';
 
         const listaLibros = document.getElementById('librosAgregados');
         listaLibros.innerHTML = '';
     }
 
-    document.getElementById('registroVenta').addEventListener('click', function () {
+    document.getElementById('registroPedido').addEventListener('click', function () {
         if (validarFormulario()) {
-            let fecha = document.getElementById('fecha').value;
+            let fecha = document.getElementById('fechaV').value;
             let formaPago = document.getElementById('formaPago').value;
-            let clienteId = document.getElementById('clienteID').value;
+            let proveedorid = document.getElementById('proveedorID').value;
             let librosAgregados = document.getElementById('librosAgregados').children;
             let montoTotal = document.getElementById('monto').value;
 
             let cantidadTotal = 0;
             let formData = new FormData();
-            formData.append('accion', 'register_sale');
-            formData.append('fecha_venta', fecha);
+            formData.append('accion', 'registrar_pedido');
+            formData.append('fecha_pedido', fecha);
             formData.append('forma_pago', formaPago);
-            formData.append('cliente_cu', clienteId);
+            formData.append('proveedores_cpr', proveedorid);
             formData.append('monto', montoTotal);
 
             Array.from(librosAgregados).forEach((libro, index) => {
@@ -305,12 +314,12 @@ $libros = json_decode($libroController->listarLibros(), true);
             });
             formData.append('cantidad', cantidadTotal);
 
-            fetch('../Registros/registrar_Venta.php', {
+            fetch('../Registros/registrar_Pedido.php', {
                 method: 'POST',
                 body: formData
             }).then(response => response.text())
                 .then(data => {
-                    alert("Registro exitoso");
+                    alert("Registro Exitoso");
                     resetearFormulario();
                 })
                 .catch(error => {
@@ -334,14 +343,14 @@ $libros = json_decode($libroController->listarLibros(), true);
 
 
     function validarFormulario() {
-        let nombreCliente = document.getElementById('nombreCliente').value;
-        let fecha = document.getElementById('fecha').value;
+        let nombreProveedorPed = document.getElementById('nombreProveedorPed').value;
+        let fecha = document.getElementById('fechaV').value;
         let formaPago = document.getElementById('formaPago').value;
         let librosAgregados = document.getElementById('librosAgregados').children.length;
         let montoTotal = document.getElementById('monto').value;
 
-        if (!nombreCliente) {
-            alert('Por favor, seleccione un cliente.');
+        if (!nombreProveedorPed) {
+            alert('Por favor, seleccione un proveedor.');
             return false;
         }
         if (!fecha) {
@@ -353,7 +362,7 @@ $libros = json_decode($libroController->listarLibros(), true);
             return false;
         }
         if (librosAgregados === 0) {
-            alert('Por favor, agregue al menos un libro a la venta.');
+            alert('Por favor, agregue al menos un libro a la pedido.');
             return false;
         }
         if (!montoTotal || parseFloat(montoTotal) <= 0) {

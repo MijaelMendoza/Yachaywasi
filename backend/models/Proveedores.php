@@ -17,16 +17,12 @@ class ProveedoresModel
         $stmt->bind_param('ssssi', $nombre, $contacto, $correo, $telefono, $estado);
         return $stmt->execute();
     }
-
+ 
     public function obtenerProveedores()
     {
-        $sql = "SELECT * FROM Proveedores";
-        $result = $this->db->query($sql);
-        $proveedores = array();
-        while ($row = $result->fetch_assoc()) {
-            $proveedores[] = $row;
-        }
-        return $proveedores;
+        $stmt = $this->db->prepare("SELECT * FROM Proveedores WHERE estado = true");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function actualizarProveedor($cpr, $nombre, $contacto, $correo, $telefono, $estado)

@@ -1,3 +1,4 @@
+<?php include '../templates/header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,7 +84,7 @@
                         <th>Costo</th>
                         <th>Precio Unitario</th>
                         <th>Proveedor</th>
-                        <th>Fecha de Recepción</th>
+                        <th>Fecha Esperada de Recepción</th>
                     </tr>
                 </thead>
                 <tbody id="librosTableBody">
@@ -100,13 +101,36 @@
                             exit();
                         }
 
-                        $consulta = "SELECT l.cl, l.genero, l.precio, l.titulo, pp.fecha_repeccion, dv.precio_unitario, l.stock 
+                        $consulta = "SELECT l.cl, l.genero, l.precio, l.titulo, p.nombre AS nombre_proveedor, pp.fecha_recepcion, ppl.precio_unitario, l.stock 
                         FROM Libros l
                         INNER JOIN pedidos_proveedores_libros ppl ON l.cl = ppl.Libros_cl
                         INNER JOIN Pedidos_proveedores pp ON ppl.Pedidos_proveedores_cpep = pp.cpep
                         INNER JOIN Proveedores p ON pp.Proveedores_cpr = p.cpr
-                        INNER JOIN detalle_venta dv ON l.cl = dv.Libros_cl
                         ";
+
+                        // $consulta = "SELECT
+                        //                 l.cl,
+                        //                 l.titulo,
+                        //                 l.genero,
+                        //                 e.nombre,
+                        //                 l.anioPublicacion,
+                        //                 l.precio,
+                        //                 l.stock,
+                        //                 s.nombre,
+                        //                 CASE
+                        //                     WHEN l.estado = true THEN 'Activo'
+                        //                     ELSE 'Inactivo'
+                        //                 END AS Estado
+                        //                 FROM
+                        //                 Libros l
+                        //                 JOIN
+                        //                 Editorial e ON l.Editorial_ce = e.ce
+                        //                 JOIN
+                        //                 Sucursal s ON l.Sucursal_cs = s.cs
+                        //                 WHERE
+                        //                 l.estado = true
+                        //                 ORDER BY
+                        //                 l.cl;";
 
                         // Execute the query
                         $resultado = $conexion->query($consulta);
@@ -138,7 +162,7 @@
                         echo "<td>" . $dato['precio'] . "</td>";
                         echo "<td>" . $dato['precio_unitario'] . "</td>";
                         echo "<td>" . $dato['nombre_proveedor'] . "</td>";
-                        echo "<td>" . $dato['fecha_repeccion'] . "</td>";
+                        echo "<td>" . $dato['fecha_recepcion'] . "</td>";
 
 
                         echo "</tr>";
