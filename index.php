@@ -80,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             <input type="submit" value="Acceder">
             <br>
-            <small><a href="#">Recuperar contraseña</a></small>
         </form>
     </div>
     <script>

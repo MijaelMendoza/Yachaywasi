@@ -156,6 +156,7 @@ CREATE TABLE detalle_venta (
 -- Table: pedidos_proveedores_libros
 CREATE TABLE pedidos_proveedores_libros (
     cppl serial  NOT NULL,
+    precio_unitario numeric(10,2)  NOT NULL,
     Pedidos_proveedores_cpep int  NOT NULL,
     Libros_cl int  NOT NULL,
     CONSTRAINT pedidos_proveedores_libros_pk PRIMARY KEY (cppl)

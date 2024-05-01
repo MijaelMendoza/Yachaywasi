@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="registroEmpleadoModalLabel">REGISTRAR EMPLEADO</h5>
+                <h5 class="modal-title" id="registroEmpleadoModalLabel">REGISTRAR FUNCIONARIO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- Formulario de registro de empleado -->
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="col">
                                     <label for="cargo" class="form-label">Cargo</label>
                                     <select class="form-control" id="cargo" name="cargo" required>
-                                        <option value="Admin">Administrador</option>
+                                        <option value="Admin">Gerente</option>
                                         <option value="Empleado">Empleado</option>
                                     </select>
                                 </div>

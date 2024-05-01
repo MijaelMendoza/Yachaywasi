@@ -17,7 +17,7 @@ $libros = json_decode($libroController->listarLibros(), true);
 $pedidoProveedorController = new PedidosProveedoresController();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['accion'] == 'registrar_pedido') {
+    if ($_POST['action'] == 'registrar_pedido') {
         $formaPago = $_POST['forma_pago'];
         $montoTotal = $_POST['monto'];
         $proveedorID = $_POST['proveedores_cpr'];
@@ -194,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="hidden" name="accion" value="registrar_pedido">
+                <input type="hidden" name="action" value="registrar_pedido">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary" id="registroPedido">Registrar</button>
             </div>
@@ -202,7 +202,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </div>
 
-<input type="hidden" name="accion" value="registrar_pedido">
 <input type="hidden" id="proveedorID" name="proveedores_cpr">
 <input type="hidden" id="libroID" name="libro_cl">
 
@@ -299,7 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             let cantidadTotal = 0;
             let formData = new FormData();
-            formData.append('accion', 'registrar_pedido');
+            formData.append('action', 'registrar_pedido');
             formData.append('fecha_pedido', fecha);
             formData.append('forma_pago', formaPago);
             formData.append('proveedores_cpr', proveedorid);

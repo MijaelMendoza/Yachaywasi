@@ -2,7 +2,7 @@
 include_once '../../../backend/core/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['accion']) && $_POST['accion'] === 'registrar_proveedor') {
+    if (isset($_POST['action']) && $_POST['action'] === 'registrar_proveedor') {
         if (empty($_POST['nombreProveedor']) || empty($_POST['contactoProveedor']) || empty($_POST['correoProveedor']) || empty($_POST['telefonoProveedor'])) {
             echo "<script>alert('Todos los campos son obligatorios. Por favor, complete todos los campos.');</script>";
         } else {
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="accion" value="registrar_proveedor">
+                    <input type="hidden" name="action" value="registrar_proveedor">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary" id="registrarProveedorBtn">Registrar</button>

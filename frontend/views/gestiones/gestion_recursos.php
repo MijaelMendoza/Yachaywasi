@@ -65,7 +65,7 @@ include '../templates/header.php';
                     <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
                     <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registroEmpleadoModal">
                         <img src="../../images/registro_venta.png" alt="Empleado" style="width: 100px;">
-                        <div>REGISTRAR EMPLEADO</div>
+                        <div>REGISTRAR FUNCIONARIO</div>
                     </button>
                 </form>
             </div>
