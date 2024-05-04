@@ -84,7 +84,7 @@
                         <th>Costo</th>
                         <th>Precio Unitario</th>
                         <th>Proveedor</th>
-                        <th>Fecha Esperada de Recepción</th>
+                        <th>Fecha de Recepción</th>
                     </tr>
                 </thead>
                 <tbody id="librosTableBody">
@@ -101,7 +101,7 @@
                             exit();
                         }
 
-                        $consulta = "SELECT l.cl, l.genero, l.precio, l.titulo, p.nombre AS nombre_proveedor, pp.fecha_recepcion, ppl.precio_unitario, l.stock 
+                        $consulta = "SELECT DISTINCT l.cl, l.genero, l.precio, l.titulo, p.nombre AS nombre_proveedor, pp.fecha_pedido, ppl.precio_unitario, l.stock 
                         FROM Libros l
                         INNER JOIN pedidos_proveedores_libros ppl ON l.cl = ppl.Libros_cl
                         INNER JOIN Pedidos_proveedores pp ON ppl.Pedidos_proveedores_cpep = pp.cpep
@@ -131,7 +131,7 @@
                         //                 l.estado = true
                         //                 ORDER BY
                         //                 l.cl;";
-
+                    
                         // Execute the query
                         $resultado = $conexion->query($consulta);
 
@@ -162,7 +162,7 @@
                         echo "<td>" . $dato['precio'] . "</td>";
                         echo "<td>" . $dato['precio_unitario'] . "</td>";
                         echo "<td>" . $dato['nombre_proveedor'] . "</td>";
-                        echo "<td>" . $dato['fecha_recepcion'] . "</td>";
+                        echo "<td>" . $dato['fecha_pedido'] . "</td>";
 
 
                         echo "</tr>";
@@ -174,45 +174,38 @@
 
 
     </div>
-    <footer>
-        <button id="regresarBtn" class="btn btn-danger"
-            style="border-radius: 10px; margin-left:78%;margin-top:3%;width:15%;margin-bottom:3%;background-color:orange;color:black;border-color:black;">CERRAR
-            SESION</button>
-    </footer>
     <script>
-
-
-        // Código adicional para redirigir al hacer clic en el botón "Dibujar Grafo"
         document.getElementById('regresarBtn').addEventListener('click', function () {
             window.location.href = 'informes.php';
         });
 
     </script>
-
-
-
-
-
     <script>
         function searchTable() {
-            var input, filter, table, tr, td, i, txtValue;
+            var input, filter, table, tr, txtValue;
             input = document.getElementById("searchInput");
             filter = input.value.toUpperCase();
             table = document.getElementById("librosTable");
             tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1]; // Index 1 for 'Nombre' column
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
+
+            for (var i = 1; i < tr.length; i++) {
+                var display = false;
+                var searchColumns = [1, 2, 6];
+                for (var col of searchColumns) {
+                    var td = tr[i].getElementsByTagName("td")[col];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            display = true;
+                            break;
+                        }
                     }
                 }
+                tr[i].style.display = display ? "" : "none";
             }
         }
     </script>
+
 
 </body>
 

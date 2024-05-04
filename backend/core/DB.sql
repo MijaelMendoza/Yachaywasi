@@ -318,3 +318,25 @@ ALTER TABLE reviews ADD CONSTRAINT reviews_Libros
 ;
 
 -- End of file.
+
+--triggers:
+CREATE OR REPLACE FUNCTION actualizar_stock_proveedor() RETURNS TRIGGER AS $$
+DECLARE
+    cantidad_total INT;
+BEGIN
+    SELECT cantidad INTO cantidad_total
+    FROM Pedidos_proveedores
+    WHERE cpep = NEW.Pedidos_proveedores_cpep;
+
+    UPDATE Libros
+    SET stock = stock + cantidad_total
+    WHERE cl = NEW.Libros_cl;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER actualizar_stock_pedido_proveedor
+AFTER INSERT ON pedidos_proveedores_libros
+FOR EACH ROW
+EXECUTE FUNCTION actualizar_stock_proveedor();

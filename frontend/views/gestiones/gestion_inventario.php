@@ -1,7 +1,11 @@
 <?php
 session_start();
-require_once '../../../backend/models/Libro.php';
-include '../templates/header.php';
+
+if ($_SESSION['isAdmin']) {
+  include '../templates/header.php';
+} else {
+  include '../templates/header_Empleado.php';
+}
 require_once '../../../backend/core/Conexion.php';
 $editoriales = obtenerEditoriales();
 ?>
@@ -24,14 +28,19 @@ $conn = Conectarse();
     <div class="relative">
       <input type="text" id="searchInput" class="border border-zinc-300 dark:border-zinc-700 p-3 rounded-md"
         placeholder="Search" oninput="filterTable()" />
-      <button class="absolute right-2 top-2 text-zinc-600 dark:text-zinc-400" onclick="filterTable()">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M15.75 15.75L19.5 19.5m-6.75-3.75a6 6 0 1112 0 6 6 0 01-12 0z" />
-        </svg>
-      </button>
     </div>
+    <?php if ($_SESSION['isAdmin']): ?>
+      <div class="mb-3 text-center">
+        <form action="registrar_libro.php" method="post">
+          <input type="hidden" name="sucursal" value="<?php echo htmlspecialchars($_SESSION['user_sucursal'] ?? ''); ?>">
+          <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
+          <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
+            data-bs-target="#registroLibroModal">
+            REGISTRAR LIBRO
+          </button>
+        </form>
+      </div>
+    <?php endif; ?>
   </div>
   <div class="overflow-x-auto">
     <table id="inventoryTable" class="w-full text-left border-collapse">
@@ -143,7 +152,7 @@ $conn = Conectarse();
     </div>
   </div>
 </div>
-
+<?php include '../Registros/registrar_Libro.php' ?>
 <script>
   function eliminarLibro(cl) {
     if (confirm("¿Estás seguro de que deseas eliminar este libro?")) {

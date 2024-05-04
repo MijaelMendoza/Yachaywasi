@@ -90,25 +90,28 @@
                             echo "<h1>No se puede conectar a la base de datos.</h1>";
                             exit();
                         }
-                        $consulta = "SELECT
-                                        v.cv,
-                                        v.fecha_venta,
-                                        v.forma_pago,
-                                        v.cantidad,
-                                        v.monto,
-                                        c.nombre AS cliente,
-                                        e.nombre AS empleado,
-                                        s.nombre AS sucursal
-                                    FROM
-                                        Ventas v
-                                    JOIN
-                                        detalle_venta cdv ON v.cv = cdv.Ventas_cv
-                                    JOIN
-                                        Cliente c ON v.Cliente_cu = c.cu
-                                    JOIN
-                                        Empleado e ON v.Empleado_ca = e.ca
-                                    JOIN
-                                        Sucursal s ON v.Sucursal_cs = s.cs;";
+                        $consulta = "SELECT DISTINCT
+                        v.cv,
+                        v.fecha_venta,
+                        v.forma_pago,
+                        v.cantidad,
+                        v.monto,
+                        c.nombre AS cliente,
+                        e.nombre AS empleado,
+                        s.nombre AS sucursal
+                    FROM
+                        Ventas v
+                    JOIN
+                        detalle_venta cdv ON v.cv = cdv.Ventas_cv
+                    JOIN
+                        Cliente c ON v.Cliente_cu = c.cu
+                    JOIN
+                        Empleado e ON v.Empleado_ca = e.ca
+                    JOIN
+                        Sucursal s ON v.Sucursal_cs = s.cs
+                    ORDER BY
+                        v.cantidad DESC;
+                    ";
                         // Execute the query
                         $resultado = $conexion->query($consulta);
                         if (!$resultado) {
@@ -142,9 +145,7 @@
         </div>
     </div>
     <footer>
-        <button id="regresarBtn" class="btn btn-danger"
-            style="border-radius: 10px; margin-left:78%;margin-top:3%;width:15%;margin-bottom:3%;background-color:orange;color:black;border-color:black;">CERRAR
-            SESION</button>
+
     </footer>
     <script>
         document.getElementById('regresarBtn').addEventListener('click', function () {
@@ -159,7 +160,7 @@
             table = document.getElementById("ventasTable");
             tr = table.getElementsByTagName("tr");
             for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
+                td = tr[i].getElementsByTagName("td")[5];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -171,6 +172,7 @@
             }
         }
     </script>
+
 </body>
 
 </html>
