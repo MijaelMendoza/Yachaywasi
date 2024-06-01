@@ -43,7 +43,7 @@
                         <a class="nav-link" href="../gestiones/gestion_inventario.php">Gestión Inventario</a>
                         <a class="nav-link" href="../gestiones/gestion_recursos.php">Gestión de Recursos</a>
                         <a class="nav-link" href="../informes/informes.php">Informes</a>
-                        <a class="nav-link" href="../Dashboards/example.php">Dashboard</a>
+                        <a class="nav-link" href="../Dashboards/sideBar.php">Dashboard</a>
                     </div>
                 </div>
             </div>

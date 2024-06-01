@@ -1,4 +1,3 @@
-<?php include '../templates/header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,8 +8,8 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
             width: 100%;
+            height: 100%;
             overflow: hidden;
         }
 
@@ -18,7 +17,6 @@
             width: 100%;
             height: 100%;
             border: none;
-            overflow: hidden;
         }
     </style>
 </head>
@@ -30,4 +28,3 @@
 </body>
 
 </html>
-<?php include '../templates/footer.php'; ?>

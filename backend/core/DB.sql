@@ -95,7 +95,7 @@ CREATE TABLE Pedidos_proveedores (
     cantidad int  NOT NULL,
     monto numeric(10,2)  NOT NULL,
     fecha_pedido date  NOT NULL,
-    fecha_repeccion date  NOT NULL,
+    fecha_recepcion date  NOT NULL,
     Proveedores_cpr int  NOT NULL,
     CONSTRAINT Pedidos_proveedores_pk PRIMARY KEY (cpep)
 );
@@ -340,3 +340,15 @@ CREATE TRIGGER actualizar_stock_pedido_proveedor
 AFTER INSERT ON pedidos_proveedores_libros
 FOR EACH ROW
 EXECUTE FUNCTION actualizar_stock_proveedor();
+
+-- Insertar una sucursal
+INSERT INTO Sucursal (nombre, direccion, telefono, correo, estado)
+VALUES ('Sucursal Central', 'Av. Principal 123', '1234567890', 'central@sucursal.com', TRUE);
+
+-- Insertar el primer empleado
+INSERT INTO Empleado (nombre, ci, password, direccion, telefono, correo, cargo, fecha_contratacion, salario, estado, Sucursal_cs)
+VALUES ('Juan Perez', '1234567', '123', 'Calle 1 #45', '9876543210', 'gerente@gmail.com', 'Admin', '2023-05-31', 5000, TRUE, 1);
+
+-- Insertar el segundo empleado
+INSERT INTO Empleado (nombre, ci, password, direccion, telefono, correo, cargo, fecha_contratacion, salario, estado, Sucursal_cs)
+VALUES ('Maria Lopez', '7654321', '123', 'Calle 2 #67', '0987654321', 'empleado@gmail.com', 'Empleado', '2023-05-31', 3000, TRUE, 1);
