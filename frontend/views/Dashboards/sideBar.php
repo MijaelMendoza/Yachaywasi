@@ -1,4 +1,6 @@
-<?php include '../templates/header.php'; ?>
+<?php include '../templates/header.php'; 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,8 +68,9 @@
         <a href="#" onclick="loadPage('ventas')">Ventas</a>
         <a href="#" onclick="loadPage('inventario')">Inventario</a>
         <a href="#" onclick="loadPage('sucursal')">Sucursal y Funcionarios</a>
-        
-        <a href="#" onclick="loadPage('asesor')">Asesor Financiero</a>
+        <?php if ($_SESSION['isAsesor']): ?>
+            <a href="#" onclick="loadPage('asesor')">Asesor Financiero</a>
+        <?php endif; ?>
     </div>
 
     <div class="main">
