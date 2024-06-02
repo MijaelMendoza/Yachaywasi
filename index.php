@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['user_sucursal'] = $user['sucursal_cs'];
                     $_SESSION['user_id'] = $user['ca'];
                     $_SESSION['isAdmin'] = true;
+                    $_SESSION['isAsesor'] = false;
                     header("Location: ./frontend/views/homePage/homeAdmin.php");
                 } else if ($user['cargo'] === 'Empleado') {
                     $_SESSION['user_name'] = $user['nombre'];
@@ -32,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['user_sucursal'] = $user['sucursal_cs'];
                     $_SESSION['user_id'] = $user['ca'];
                     $_SESSION['isAsesor'] = true;
+                    $_SESSION['isAdmin'] = true;
                     header("Location: ./frontend/views/homePage/homeAdmin.php");
                 }
                 exit();
