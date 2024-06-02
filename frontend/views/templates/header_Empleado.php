@@ -39,7 +39,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav ms-auto">
-                        <a class="nav-link" href="../homePage/homeEmpleado.php">Home</a>
+                        <a class="nav-link" href="../homePage/homeEmpleado.php">Inicio</a>
                         <a class="nav-link" href="../gestiones/gestion_inventario.php">Gestión Inventario</a>
                         <!--<a class="nav-link" href="../gestiones/gestion_recursos.php">Gestión de Recursos</a>
                         <a class="nav-link" href="../informes/informes.php">Informes</a>-->
