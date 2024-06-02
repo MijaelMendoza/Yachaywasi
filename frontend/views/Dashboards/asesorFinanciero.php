@@ -24,7 +24,7 @@
 
 <body>
     <iframe title="ventasSupermercado(2)"
-        src="https://app.powerbi.com/view?r=eyJrIjoiYWU2NDUzOTUtYjk0My00YWQ3LWIxOTQtZmM1MWI2MWQ4YWYxIiwidCI6ImNjMjg2MzNmLTEyYjgtNDZjYi1iYzE1LTk1MWRhZTIzOWI0ZCIsImMiOjR9"
+        src="https://app.powerbi.com/view?r=eyJrIjoiZjQ5NzkxYWQtZmQzYy00MGMwLWI4YTMtNmU0MTliM2UyY2E3IiwidCI6ImNjMjg2MzNmLTEyYjgtNDZjYi1iYzE1LTk1MWRhZTIzOWI0ZCIsImMiOjR9"
         frameborder="0" allowFullScreen="true"></iframe>
 </body>
 

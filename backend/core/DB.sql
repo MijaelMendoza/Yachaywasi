@@ -341,6 +341,13 @@ AFTER INSERT ON pedidos_proveedores_libros
 FOR EACH ROW
 EXECUTE FUNCTION actualizar_stock_proveedor();
 
+INSERT INTO Editorial (nombre, contacto, direccion, telefono, correo, estado) VALUES
+('Penguin Random House', 'John Doe', '1745 Broadway, New York, NY 10019, USA', '1234567890', 'johndoe@penguinrandomhouse.com', TRUE),
+('HarperCollins', 'Jane Smith', '195 Broadway, New York, NY 10007, USA', '0987654321', 'janesmith@harpercollins.com', TRUE),
+('Macmillan Publishers', 'Robert Brown', '120 Broadway, New York, NY 10271, USA', '1122334455', 'robertbrown@macmillan.com', TRUE),
+('Simon & Schuster', 'Emily Davis', '1230 Avenue, New York, NY 10020, USA', '2233445566', 'emilydavis@simonandschuster.com', TRUE),
+('Hachette Book Group', 'Michael Johnson', '1290 Avenue, New York, NY 10104, USA', '3344556677', 'michaeljohnson@hbgusa.com', TRUE);
+
 -- Insertar una sucursal
 INSERT INTO Sucursal (nombre, direccion, telefono, correo, estado)
 VALUES ('Sucursal Central', 'Av. Principal 123', '1234567890', 'central@sucursal.com', TRUE);
@@ -352,3 +359,6 @@ VALUES ('Juan Perez', '1234567', '123', 'Calle 1 #45', '9876543210', 'gerente@gm
 -- Insertar el segundo empleado
 INSERT INTO Empleado (nombre, ci, password, direccion, telefono, correo, cargo, fecha_contratacion, salario, estado, Sucursal_cs)
 VALUES ('Maria Lopez', '7654321', '123', 'Calle 2 #67', '0987654321', 'empleado@gmail.com', 'Empleado', '2023-05-31', 3000, TRUE, 1);
+
+INSERT INTO Empleado (nombre, ci, password, direccion, telefono, correo, cargo, fecha_contratacion, salario, estado, Sucursal_cs)
+VALUES ('Maria Lopez', '7654321', '123', 'Calle 2 #67', '0987654321', 'asesor@gmail.com', 'Asesor', '2023-05-31', 3000, TRUE, 1);

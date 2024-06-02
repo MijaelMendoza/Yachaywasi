@@ -16,10 +16,12 @@
         }
 
         .sidenav {
-            height: calc(100vh - 70px - 40px); /* Adjust height based on header and footer */
+            height: calc(100vh - 70px);
+            /* Adjust height based on header and footer */
             width: 200px;
             position: fixed;
-            top: 70px; /* Height of the header */
+            top: 70px;
+            /* Height of the header */
             left: 0;
             background-color: #111;
             padding-top: 20px;
@@ -39,9 +41,11 @@
         }
 
         .main {
-            margin-left: 200px; /* Same as the width of the sidenav */
+            margin-left: 200px;
+            /* Same as the width of the sidenav */
             padding: 10px;
-            height: calc(100vh - 70px - 40px); /* Adjust height based on header and footer */
+            height: calc(100vh - 70px);
+            /* Adjust height based on header and footer */
             overflow: hidden;
         }
 
@@ -61,8 +65,9 @@
         <a href="#" onclick="loadPage('cliente')">Cliente</a>
         <a href="#" onclick="loadPage('ventas')">Ventas</a>
         <a href="#" onclick="loadPage('inventario')">Inventario</a>
-        <a href="#" onclick="loadPage('sucursal')">Sucursal</a>
-        <a href="#" onclick="loadPage('funcionarios')">Funcionarios</a>
+        <a href="#" onclick="loadPage('sucursal')">Sucursal y Funcionarios</a>
+        
+        <a href="#" onclick="loadPage('asesor')">Asesor Financiero</a>
     </div>
 
     <div class="main">
@@ -88,8 +93,8 @@
                 case 'sucursal':
                     frame.src = 'sucursal.php';
                     break;
-                case 'funcionarios':
-                    frame.src = 'funcionarios.php';
+                case 'asesor':
+                    frame.src = 'asesorFinanciero.php';
                     break;
             }
         }
